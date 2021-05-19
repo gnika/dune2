@@ -1,0 +1,273 @@
+
+<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="{{ asset('heroesofpixel/assets/js/common.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/logic-grid.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/building.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/hero.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/artefact.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/monstre.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/menu.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/images.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/map.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/map2.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/map3.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/maproom1.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/maproom3.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/dialogues.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/graph.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/astar.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/paysan.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/save.js') }}"></script>
+<script src="{{ asset('heroesofpixel/assets/js/menu.js') }}"></script>
+
+<body>
+<div class="container">
+    <div style="width: 100%;">
+
+
+    <canvas id="map_canvas" class="heroes" width="1034" height="590"></canvas>
+
+</div>
+
+<!-- <footer class="main-footer"> -->
+<!-- Heroes of pixel : 3 mad devs on it ! -->
+<!-- </footer> -->
+
+</body>
+
+<script>
+
+
+    function AjouterFavoris(){
+
+        var save = [];
+        var monstres = [];
+        Object.keys(monsters).forEach(function(key) {
+            var ms = [];
+            ms.push(monsters[key].directionX);
+            ms.push(monsters[key].directionY);
+            ms.push(monsters[key].vitesse);
+            ms.push(monsters[key].col);
+            ms.push(monsters[key].row);
+            ms.push(monsters[key].x);
+            ms.push(monsters[key].y);
+            ms.push(monsters[key].idQuete);
+            ms.push(monsters[key].image1);
+            monstres.push(ms);
+        })
+        var batiments = [];
+        Object.keys(builds).forEach(function(key) {
+
+            var ms = [];
+            var caractEntrees = [];
+            var caractValues = [];
+            caract = builds[key].caracteristique;
+            Object.keys(caract).forEach(function(key) {
+                caractEntrees.push(key);
+                caractValues.push(caract[key]);
+            })
+            ms.push(builds[key].x);
+            ms.push(builds[key].y);
+            ms.push(builds[key].row);
+            ms.push(builds[key].col);
+            ms.push(builds[key].name);
+            ms.push(builds[key].life);
+            ms.push(caractEntrees);
+            ms.push(builds[key].typeTile);
+            ms.push(builds[key].solid);
+            ms.push(builds[key].batiment);
+            ms.push(caractValues);
+            ms.push(builds[key].level);
+            ms.push(builds[key].titre);
+            ms.push(builds[key].etat);
+            ms.push(builds[key].road);
+            batiments.push(ms);
+        })
+        var artefactMap = [];
+        <!-- console.log(artefacts); -->
+        Object.keys(artefacts).forEach(function(key) {
+            var ms = [];
+            ms.push(artefacts[key].x);
+            ms.push(artefacts[key].y);
+            ms.push(artefacts[key].col);
+            ms.push(artefacts[key].row);
+            ms.push(artefacts[key].image);
+            artefactMap.push(ms);
+        })
+        var hero  = [];
+        var equipEntrees = [];
+        var equipValues = [];
+        var batimentsHeros = [];
+        var batimentsHerosValues = [];
+
+        Object.keys(Game.hero.equipement).forEach(function(key) {
+
+            equipEntrees.push(key);
+            equipValues.push(Game.hero.equipement[key]);
+        })
+
+        Object.keys(Game.hero.batiments).forEach(function(key) {
+            batimentsHeros.push(key);
+            batimentsHerosValues.push(Game.hero.batiments[key]);
+        })
+
+        hero.push(Game.hero.agilite);
+        hero.push(Game.hero.attaque);
+        hero.push(Game.hero.attaqueEnCours);
+        hero.push(Game.hero.defense);
+        hero.push(Game.hero.x);
+        hero.push(Game.hero.y);
+        hero.push(Game.hero.life);
+        hero.push(Game.hero.fatigue);
+        hero.push(Game.hero.exploration);
+        hero.push(Game.hero.artefact);
+        hero.push(Game.hero.artefactEnCours);
+        hero.push(Game.hero.supply);
+        hero.push(equipEntrees);
+        hero.push(equipValues);
+        hero.push(batimentsHeros);
+        hero.push(batimentsHerosValues);
+
+
+        var mapa = [];
+
+
+        var abs1S =[];
+        var abs2S =[];
+        var absobs1S =[];
+        var absobs2S =[];
+        for(var i=0; i<abs1Save.length; i++){
+            if(abs1Save[i] != abs1[i])
+                abs1S.push(i+':'+ abs1[i]);
+        }
+        for(var i=0; i<abs2Save.length; i++){
+            if(abs2Save[i] != abs2[i])
+                abs2S.push(i+':'+ abs2[i]);
+        }
+        for(var i=0; i<absobs1.length; i++){
+            if(absobs1[i] != 7 && i > 48)			// 7 = tuile inexplorée
+                absobs1S.push(i+':'+ absobs1[i]);
+        }
+        for(var i=0; i<absobs2.length; i++){
+            if(absobs2[i] != 7 && i > 48)			// 7 = tuile inexplorée
+                absobs2S.push(i+':'+ absobs2[i]);
+        }
+
+
+        mapa.push(abs1S);
+        mapa.push(abs2S);
+        mapa.push(absobs1S);
+        mapa.push(absobs2S);
+        mapa.push(niveauMap);
+
+        save.push(monstres);
+        save.push(batiments);
+        save.push(artefactMap);
+        save.push(hero);
+        save.push(mapa);
+
+        var json = JSON.stringify(save);
+        return [batiments, json];
+
+    }
+
+    var context = document.getElementById('map_canvas').getContext('2d');
+    Game.run(context);
+</script>
+<input type="hidden" name="retourJeux" id="retourJeux" value="0" />
+
+<script>
+    $('#buttonObjet').hide();
+    $('#buttonObjet').hide();
+    $('#buttonRessources').hide();
+function appelAjax(destination){
+    if($('#retourJeux').val() == 0) {
+        var save = AjouterFavoris();
+        $('#retourJeux').val(1);
+
+        $('#buttonObjet').show();
+        $('#buttonRessources').show();
+        var request = $.ajax({
+            url: '/'+destination,
+            type: "POST",
+            data: {
+                heroesofpixel: save[1],
+                batiments: save[0]
+            }
+        });
+        request.done(function (msg) {
+            $("#inThePlace").fadeOut(1000);
+            setTimeout(function () {
+                $("#inThePlace").hide();
+                $("#inThePlace").html(msg);
+                $("#inThePlace").fadeIn(1000);
+            }, 1000);
+
+        });
+    }
+}
+function payeAjax(epice, renommee, eau, credit, troupe, ajout =null){
+        if( renommee < 0 ) renommee = 0;
+        var request = $.ajax({
+            url: '/payeheroes',
+            type: "GET",
+            data: {
+                epice: epice,
+                renommee: renommee,
+                eau: eau,
+                credit: credit,
+                troupe: troupe,
+                ajout: ajout
+            }
+        });
+    request.done(function (msg) {
+
+        var ressources = msg.split(':::');
+        $('#nbSpice').html(padNumber(ressources[0], 5));
+        $('#nbRenom').html(padNumber(ressources[1], 4));
+        $('#nbEau').html(padNumber(ressources[2], 4));
+        $('#nbCredit').html(padNumber(ressources[3], 4));
+        $('#nbTroupe').html(padNumber(ressources[4], 4));
+    });
+}
+
+
+
+function padNumber(number, chiffre) {
+    number = number.trim();
+
+    while(number.trim().length < chiffre) {
+        number = "0" + number;
+    }
+
+    return number;
+}
+
+function payeRessources(ressources, ajout =null){
+    var epice = 0;
+    var renommee = 0;
+    var eau = 0;
+    var credit = 0;
+    var troupe = 0;
+    if (typeof ressources['epice']!=='undefined')
+        epice = ressources['epice'];
+    if (typeof ressources['renommee']!=='undefined')
+        renommee = ressources['renommee'];
+    if (typeof ressources['eau']!=='undefined')
+        eau = ressources['eau'];
+    if (typeof ressources.epice!=='undefined')
+        epice = ressources.epice;
+    if (typeof ressources.renommee!=='undefined')
+        renommee = ressources.renommee;
+    if (typeof ressources.eau!=='undefined')
+        eau = ressources.eau;
+    if (typeof ressources.credit!=='undefined')
+        credit = ressources.credit;
+    if (typeof ressources.troupe!=='undefined')
+        troupe = ressources.troupe;
+
+    payeAjax(epice, renommee, eau, credit, troupe, ajout);
+}
+</script>

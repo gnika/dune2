@@ -1,0 +1,68 @@
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+
+    });
+
+    var arret = 0;
+    if($("#geolier_village_prison").length) {
+        $("#geolier_village_prison").muetFonction([], [-10, -58, -168, -58, -332, -58, -168, -58]);
+    }
+    if($("#aloa_prison").length) {
+        $("#aloa_prison").muetFonction([200, 600, 800, 1000]);
+    }
+    if($("#surplus_prison").length) {
+        $("#surplus_prison").muetFonction();
+    }
+    if($("#conseiller_politique_prison").length) {
+        $("#conseiller_politique_prison").muetFonction([], [-10, 0, -150, 0, -290, 0, -150, 0]);
+    }
+
+
+    $("#aloa_prison_prison").dialogue('geolier_villagetext', 'aloa_prison geolier_village', 31, 270, [],
+        [-10, -58, -168, -58, -332, -58, -168, -58],
+        [],
+        [-10, -304, -168, -304, -332, -304, -168, -304],
+    );
+
+
+    $("#surplus_prison").dialogue('geolier_villagetext', 'surplus_prison geolier_village', 31, 270, [],
+        [-10, -58, -168, -58, -332, -58, -168, -58],
+        [],
+        [-10, -304, -168, -304, -332, -304, -168, -304],
+    );
+
+
+    $("#conseiller_politique_prison").dialogue('geolier_villagetext', 'conseiller_politique_prison geolier_village_prison', 31, 270, [],
+        [-10, -58, -168, -58, -332, -58, -168, -58],
+        [],
+        [-10, -304, -168, -304, -332, -304, -168, -304],
+    );
+
+
+    $("#geolier_village_prison").dialogue('geolier_villagetext', 'geolier_village_prison', 31, '', [],
+        [-10, -58, -168, -58, -332, -58, -168, -58],
+        [],
+        [-10, -304, -168, -304, -332, -304, -168, -304],
+    );
+
+    $("#plan").val('geoliervillage');
+    $("#mesTexto").html('<img src="/images/plan/geoliervillage.png" />');
+
+</script>
+</head>
+
+
+<div id="{{ salle }}">
+    <div id="perso"></div><p>&nbsp;</p>
+    <div id='retour_marches' alt="village3" title="Village" style='z-index:1000'></div>
+
+    <div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_prison" id="{{ key }}_prison"></div>
+    {% endfor %}
+</div>
+
+

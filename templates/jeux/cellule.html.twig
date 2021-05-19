@@ -1,0 +1,86 @@
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+        aniX = 0;
+        aniY = 0;
+
+        jQuery.fn.arretGch = function() {
+            $(this).oneTime(300,function() {
+                $(this).attr('src', '/images/couloir_cachot/rat_02.png');
+                $(this).css({left:'371px'});
+            })
+                .oneTime(600,function() {
+                    $(this).attr('src', '/images/couloir_cachot/rat_03.png');
+                    $(this).css({left:'368px'});
+                })
+                .oneTime(900,function() {
+                    $(this).attr('src', '/images/couloir_cachot/rat_04.png');
+                    $(this).css({left:'371px'});
+                })
+                .oneTime(1200,function() {
+                    $(this).attr('src', '/images/couloir_cachot/rat_05.png');
+                    $(this).css({left:'371px'});
+                })
+                .oneTime(1500,function() {
+                    $(this).attr('src', '/images/couloir_cachot/rat_01.png');
+                    $(this).css({left:'371px'});
+                });
+        };
+
+        jQuery.fn.mouvArretGch = function(){
+            $(this).arretGch();
+            $(this).everyTime(1500,function(){
+                $(this).arretGch();
+            });
+        }
+
+        jQuery.fn.stopMouve = function(){
+            $(this).stop(true).stopTime();
+        }
+
+
+        var arret = 0;
+
+        });
+
+        if($("#rat").length)
+            $("#rat").mouvArretGch();
+
+
+        $("#mesTexto").html('<img src="/images/plan/couloir_cachot_plan.png" />');
+        $("#plan").val('couloir_cachot');
+
+</script>
+</head>
+
+<div id="{{ salle }}">
+
+    {% for value in porteDansSalle %}
+        {% if value.poru_etat == 1 %}
+            {% set title = value.por_title_ouvert %}
+        {% else %}
+            {% set title = value.por_title_ferme %}
+        {% endif %}
+
+        <div title="{{ title }}" alt="{{ value.por_direction }}" id="porte_{{ value.por_id }}" class="porte_{{ value.por_id_type }}_{{ value.poru_etat }}"></div>
+    {% endfor %}
+
+
+    <div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_couloir2" id="{{ key }}"></div>
+    {% endfor %}
+
+
+    {% if return == 1 %}
+        <div id="vers_portePrison" alt="couloircachot" class="portePrison"></div>
+        <div id="serrure_brulure"></div>
+    {% else %}
+        <div id="serrure_no_brulure"></div>
+    {% endif %}
+
+    <div id="livre_prison"  onclick="setjournalprisonnier()"></div>
+
+</div>

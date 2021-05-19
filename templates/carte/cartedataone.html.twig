@@ -1,0 +1,41 @@
+<h3>{{myStar.ca_nom}}</h3>
+<div class="popupcontent">
+    <p>{{myStar.ca_description}}</p>
+    {% if myStar.cau_ca_id is defined  %}
+
+        <br/><p><a href="" onclick="envoiVaisseau({{myStar.ca_id}}, 3);return false;">Attaquer la planète</a></p>
+        <br/><p><a href="" onclick="envoiVaisseau({{myStar.ca_id}}, 4);return false;">Explorer la planète</a></p>
+        <br/><p><a href="" onclick="envoiDiplomate({{myStar.ca_id}});return false;">Envoyer un diplomate Atréides</a></p>
+    {% elseif myStar.cau_diplomate ==1 %}
+
+    <br><p>En attente du débriefing du diplomate Atréides</p>
+
+    {% elseif myStar.cau_etat ==2 %}
+
+        <br><p>Un diplomate Atréides intervient sur cette planète </p>
+
+    {% elseif myStar.cau_etat ==0 %}
+
+        <br/><p>{{ myStar.ca_flotte }} vaisseaux protègent la planète</p>
+        <br/><p>niveau social de la planète : {{ myStar.ca_civ }}</p>
+        <br/><p><a href="" onclick="envoiVaisseau({{ myStar.ca_id }}, 3);return false;">Attaquer la planète</a></p>
+        <br/><p><a href="" onclick="envoiDiplomate({{ myStar.ca_id }});return false;">Envoyer un diplomate Atréides</a></p>
+
+    {% elseif myStar.cau_etat ==1 %}
+
+        <p>Vous possédez {{ myStar.cau_troupe }} troupes sur cette planète</p><p>{{ myStar.ca_epice_jour }} épice / jours</p>
+        <br/><p><a href="" onclick="envoiTroupe({{ myStar.ca_id }});return false;">Défendre la planète</a></p>
+
+    {% elseif myStar.cau_etat ==3 %}
+
+        <img src="/images/commun/warning.png" /><p>Votre flotte attaque cette planète !</p>
+
+    {% elseif myStar.cau_etat ==4 %}
+
+        <p><img src="/images/commun/warning.png" /></p><p>Un vaisseau d\'exploration intervient sur cette planète !</p>
+
+    {% endif %}
+
+    <br/><br/>
+</div>
+<a class="close" href="javascript:void(0)">Close</a>

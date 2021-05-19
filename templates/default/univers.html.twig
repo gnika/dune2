@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'homepage' %}
+
+
+
+{% block body %}
+
+<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">Dune le jeu Point and click: Pourquoi/comment?</h1>
+							<blockquote>
+							Codeur web depuis bientôt 10 ans en autodidacte, et geek depuis plus de 25 ans, j'ai tardivement découvert les suites du livre original <strong>DUNE</strong> de <strong>Frank Herbert</strong><br/>
+							J'ai bien entendu dévoré tous les livres et j'ai même relu 3 fois plusieurs opus entiers
+							</blockquote>
+		
+		
+<h2>Présentation générale</h2>
+
+
+
+	<p><span class="image left">
+		<img  src="/images/moi.jpg" alt="c'est moi :)" title="c'est moi :)"/>
+	</span>Ayant toujours été fasciné par l'univers de Dune et des jeux vidéos oldies, ce <strong>Dune jeu Point and click</strong> est un hommage aux jeux d'aventures des années 1990.
+De la typo des textes aux décors pixellisées en passant par les musiques oldies, tout nous replonge au coeur de cette époque perdue.</p>
+<p>Il m'a fallu plusieurs mois pour penser/architecturer/coder ce jeu unique en son genre. J'y ai passé des nuits entières en buvant des litres de café, mais le résultat est là aujourd'hui</p>
+<p>Vous pouvez me contacter sur mon adresse mail : </br> <a href="mailto:moneo.house.atreides@gmail.com">moneo.house.atreides@gmail.com</a> 
+<br/>pour me dire ce que vous en pensez. Ou même pour me dire bonjour. Ca fait toujours plaisir</p>
+
+<h2>Références</h2>
+<p>
+<img src="/images/dune-8.gif" alt="Dune jeu point and click" title="source dune jeu point and click" width="150px" height="150px" />
+<img src="/images/dune-8.jpg" alt="Dune jeu point and click" title="source dune jeu point and click" width="150px" height="150px" />
+<img src="/images/monkey.jpg" alt="Dune jeu point and click" title="source dune jeu point and click" width="150px" height="150px" />
+<img src="/images/Master_of_Orion_II_Boxart.png" alt="Dune jeu point and click" title="source dune jeu point and click" width="150px" height="150px" />
+<img src="/images/lands of lore.jpg" alt="Dune jeu point and click" title="source dune jeu point and click" width="150px" height="150px" />
+</p>
+<h2>Technologies utilisées</h2>
+<p>Ce site a la particularité d'avoir été développé en PHP grâce au framework Zend couplé à Mysql. Les animations des personnages ont été réalisées en combinant le CSS et le jQuery </p>
+<p>Chaque déplacement de pièce en pièce est effectué tout simplement grâce à l'Ajax, ainsi que le temps qui passe en bas à droite du site qui fait lui aussi appel à cette technologie </p>
+<p>Différents plugin jQuery et jQuery-ui suffisent à réaliser la barre de temps, d'objets et de confiance, ainsi que le drag n drop de la salle de bord qui est lui aussi réalisé en jQuery  </p>
+<p>Tout les plugins (ou presque) ont été hackés pour correspondre exactement à mes besoins -par exemple appel d'une page en ajax à chaque changement d'heure de la barre du temps </p>
+<p>Mais on trouve facilement son bonheur en codant un minimum et en se creusant beaucoup la tête</p>
+<h2>Dialogues entre les personnages</h2>
+<p>Chaque personnage du jeu possède un ID qui est lié à plusieurs quêtes. En choisissant les bonnes réponses, ou en utilisant des objets, le joueur met à jour l'ID des quêtes</p>
+<p>Ainsi, lorsque le personnage doit parler, une requête SQL est d'abord faite qui regarde d'abord quel ID de quête est lié à l'utilisateur, le statut de la quête du joueur, et ainsi, proposera des choix de questions
+ à l'utilisateur qui correspondront à l'endroit ou il se trouve dans la quête... c'est magique ! </p>
+ <p>Cette opération est ainsi répétée à chaque clic sur les personnages ou sur les différents choix de réponses cliqués par l'utilisateur</p>
+<br/>
+<h2>Outils utilisés</h2>
+<p>Pour réaliser ce <strong>jeu point and click</strong> il m'a fallu... pas grand chose !</p>
+<p>dans l'ordre: </p>
+<ul>
+<li>Un windows</li>
+<li>Un filezilla</li>
+<li>Un apache</li>
+<li>Un phpMyAdmin</li>
+<li>Un Notepad ++</li>
+<li>Beaucoup de motivation !</li>
+</ul>
+
+<p>Ca suffit pour réaliser ce <strong>dune jeu</strong> <strong>point and click</strong></p>
+<a href="#" class="button primary">Le jeu Dune point and click n'a plus aucun secret pour vous !</a>
+</div>
+					</section>
+
+			</div>
+
+{% endblock %}

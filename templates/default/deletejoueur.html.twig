@@ -1,0 +1,33 @@
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+{{ count }} joueurs inscrits
+<table><tr><td><input value="" type="checkbox" id="tous"> </td>
+        <td><a href="/deletejoueur/?id=" id="tousdelete">Tous les éléments cochés</a></td></tr>
+
+    {% for us in tableUser %}
+        <tr>
+            <td><input type="checkbox" value="{{ us.id }}"></td>
+            <td><a href="/deletejoueur/?id={{ us.id }}">{{ us.name }}</a></td>
+            <td>{{ us.connexion }}</td>
+            <td>{{ us.jour }}</td>
+        </tr>
+    {% endfor %}
+		</table>
+    <script>
+        $( "#tousdelete" ).click(function() {
+            var allVals = [];
+            $('input:checked').each(function() {
+                if($(this).val()!='')
+                    allVals.push($(this).val());
+            });
+            var jsonOb = JSON.stringify(allVals);
+            var href = $(this).attr('href');
+            $(this).attr('href', href+''+allVals);
+
+        });
+
+
+        $("#tous").click(function(){
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+    </script>

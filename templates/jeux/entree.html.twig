@@ -1,0 +1,41 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+
+
+        var arret = 0;
+
+
+        $("#tarhani").dialogue('tarhaniTextEntree', 'tarhani', 19, '', [],
+            [-140, 0, 0, 0, -140, 0, -280, 0], [],
+            [0, -275, -140, -275, -280, -275, -140, -275]);
+
+        if ($("#tarhani").length)
+            $("#tarhani").muetFonction([], [-140, 0, 0, 0, -140, 0, -280, 0]);
+
+        $("#mesTexto").html('<img src="/images/plan/entree_plan.png" />');
+        $("#plan").val('entree_plan');
+    })
+
+</script>
+</head>
+<div id="{{salle}}" >
+    <div id="perso"></div><p>&nbsp;</p>
+    <div class='vers_representants' id='vers_representants' {% if nop != 1 %} alt="representants" {% endif %} title="Intendance" style='z-index:1000'></div>
+    <div class='vers_couloir3' id='vers_couloir3' alt="couloir3" title="Couloir" style='z-index:1000'></div>
+    <div title="Sortie du palais" alt="marches"  id='retour_entree' style='z-index:1000'></div>
+
+    {% if sucre is not defined %}
+<div id="entree_sugar"  onclick="addObject(17, 'Vous avez trouvé des sucreries')"></div>
+    {% endif %}
+<div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_entree" id="{{ key }}"></div>
+    {% endfor %}
+
+</div>
+
+

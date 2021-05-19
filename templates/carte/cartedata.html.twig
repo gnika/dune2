@@ -1,0 +1,50 @@
+
+{% for stars in allStar %}
+    {% if stars.cau_etat == 1 and stars.cau_diplomate == 0 %}
+        {% set addClass = 'conquis' %}
+    {% elseif stars.cau_diplomate == 1 or stars.cau_etat == 2 %}
+        {% set addClass = 'diplomate' %}
+    {% elseif stars.cau_etat == 3 %}
+        {% set addClass = 'attaqueCarte' %}
+    {% elseif stars.cau_etat == 4 or (stars.cau_etat == 0 and stars.cau_id_user == app.user.id) %}
+        {% set addClass = 'reconnaissance' %}
+    {% else %}
+        {% set addClass = '' %}
+    {% endif %}
+    <a href="javascript:void(0)" id="{{ stars.ca_nom }}" class="planete_{{ stars.ca_id}} {{ addClass }} bullet {{ stars.ca_class }}" rel="{{ stars.ca_coordonnees }}">&nbsp;</a>
+<div class="popup" id="{{ stars.ca_nom }}-box">
+    <h3>{{ stars.ca_nom }}</h3>
+    <div class="popupcontent">
+    <p>{{ stars.ca_description }}</p>
+    {% if stars.cau_ca_id is null %}
+    <br/><p><a href="" onclick="envoiVaisseau({{ stars.ca_id }}, 3);return false;">Attaquer la planète</a></p>
+    <br/><p><a href="" onclick="envoiVaisseau({{ stars.ca_id }}, 4);return false;">Explorer la planète</a></p>
+    <br/><p><a href="" onclick="envoiDiplomate({{ stars.ca_id }});return false;">Envoyer un diplomate Atréides</a></p>
+    {% elseif  stars.cau_diplomate == 1 %}
+        <br><p>En attente du débriefing du diplomate Atréides</p>
+    {% elseif  stars.cau_etat == 2 %}
+        <br><p>Un diplomate Atréides intervient sur cette planète </p>
+    {% elseif  stars.cau_etat == 0 %}
+        <br/><p>{{ stars.ca_flotte }} vaisseaux protègent la planète</p>
+        <br/><p>niveau social de la planète : {{ stars.ca_civ }}</p>
+        <br/><p><a href="" onclick="envoiVaisseau({{ stars.ca_id }}, 3);return false;">Attaquer la planète</a></p>
+        <br/><p><a href="" onclick="envoiDiplomate({{ stars.ca_id }});return false;">Envoyer un diplomate Atréides</a></p>
+    {% elseif  stars.cau_etat == 1 %}
+        <p>Vous possédez {{ stars.cau_troupe }} troupes sur cette planète</p><p>{{ stars.ca_epice_jour }} épice / jours</p>
+        {% if stars.cau_envoi > 0 %}
+            <img src="/images/commun/warning.png" /><p>Nos troupes sont en déplacement vers cette planète !</p>
+        {% else %}
+            <br/><p><a href="" onclick="envoiTroupe({{ stars.ca_id }});return false;">Défendre la planète</a></p>
+            {% endif %}
+    {% elseif  stars.cau_etat == 3 %}
+        <img src="/images/commun/warning.png" /><p>Votre flotte attaque cette planète !</p>
+    {% elseif  stars.cau_etat == 4 %}
+        <p><img src="/images/commun/warning.png" /></p><p>Un vaisseau d'exploration intervient sur cette planète !</p>
+
+        {% endif %}
+        <br/><br/>
+        </div>
+        <a class="close" href="javascript:void(0)">Close</a>
+        </div>
+
+{% endfor %}

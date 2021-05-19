@@ -1,0 +1,238 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'homepage' %}
+
+{#
+    the homepage is a special page which displays neither a header nor a footer.
+    this is done with the 'trick' of defining empty Twig blocks without any content
+#}
+
+
+{% block body %}
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Intro -->
+        <section id="jouer-dune" class="wrapper style1 fullscreen fade-up">
+            <div class="inner">
+
+                {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+                
+                <h1><a class="jouer" href="">DUNE JEU POINT AND CLICK</a></h1>
+                <p>Moneo au service de l'Empereur-dieu<br />
+                    Une aventure oldie Point & click basée sur l'univers étendu de DUNE.</p>
+                <ul class="actions">
+                    {% if is_granted('ROLE_USER') %}
+                        <li><a href="{{ path('app_jouer') }}" class="button scrolly">JOUER</a></li>
+					{% else %}
+                         <li><a href="" class="jouer button scrolly">JOUER</a></li>
+                    {% endif %}
+                    <li><a href="#comment-jouer-dune" class="button scrolly">Voir plus</a></li>
+                    <li><a href="#" class="charge button scrolly">Charger une partie</a>
+
+                        <div class="load" style="display:none;">
+
+                            <form method="post" id="chargeForm">
+                                <div class="form_index">
+                                    <input type="text" style="font-size: 1em;" name="username" value="" class="" placeholder="Session sauvegardée" />
+                                    <input type="password" name="password" id="pass" style="display: none;" >
+                                    <input type="hidden" name="load" value="load" >
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"  >
+                                    <input type="submit" style="width: 100%; margin-top: 15px;" name="login" value=" Connexion " class="formsubmit" />
+
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul><br/>
+                <ul class="actions">
+                    <li><a target="_blank" href="https://www.facebook.com/duneJeuPointAndClick" class="button scrolly">Nous suivre sur Facebook</a>
+
+                </ul>
+            </div>
+        </section>
+
+        <!-- One -->
+        <section id="comment-jouer-dune" class="wrapper style2 spotlights">
+            <section>
+                <a href="#" class="image"><img src="/images/site/dune_empereur_dieu.gif" alt="Dune jeu point and click : empereur-dieu LETO II" data-position="center center" /></a>
+                <div class="content">
+                    <div class="inner">
+                        <h2>Musique et graphisme d'époque</h2>
+                        <p>Volontairement oldie, fait avec des vrais pixels qui font mal aux yeux, DUNE JEU POINT AND CLICK est un cri d'amour pour les jeux d'aventures des années 90.</p>
+                        <ul class="actions">
+                            <li><a href="{{ path('app_resume') }}" class="button">Voir plus</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <a href="#" class="image"><img src="/images/site/dune-str.gif" alt="Dune jeu point and click : oldie pixel" data-position="top center" /></a>
+                <div class="content">
+                    <div class="inner">
+                        <h2>Stratégie en temps réel</h2>
+                        <p>Construisez des bâtiments pour générer des ressources et Combattre la rébellion.</p>
+                        <p>Explorez le désert du Sareer et découvrez de nombreux lieux et personnages.</p>
+                        <ul class="actions">
+                            <li><a href="{{ path('app_contexte') }}" class="button">Voir plus</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <a href="#" class="image"><img src="/images/site/dune_empereur_palais.jpg" alt="Dune jeu point and click : oldie pixel" data-position="top center" /></a>
+                <div class="content">
+                    <div class="inner">
+                        <h2>Contexte du jeu</h2>
+                        <p>Evoluez dans l'univers de Dune, 3000 ans après la venue de <a href="{{ path('app_paul') }}">
+                                PAUL ATREIDES</a> sur Arrakis dans la peau de Moneo, fidèle serviteur de l'Empereur-dieu LETO II.</p>
+                        <ul class="actions">
+                            <li><a href="{{ path('app_contexte') }}" class="button">Voir plus</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <a href="#" class="image"><img src="/images/site/dune_empereur_arrakis.jpg" alt="Dune jeu point and click : jeu dune arrakis" data-position="25% 25%" /></a>
+                <div class="content">
+                    <div class="inner">
+                        <h2>Les personnages du jeu</h2>
+                        <p>Découvrez l'histoire et le contexte politique des 4 grandes maisons qui composent cet univers.</p>
+                        <ul class="actions">
+                            <li><a href="{{ path('app_personnages') }}" class="button">Voir plus</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <!-- Two -->
+        <section id="tuto-dune-point-and-click" class="wrapper style3 fade-up">
+            <div class="inner">
+                <h2><a href="{{ path('app_tuto') }}">Comment jouer</a></h2>
+                <p>Dune jeu point and click est un jeu absolument libre, sans publicité et sans demande d'inscription.</p>
+                <div class="features">
+                    <section>
+                        <span class="icon major fa-gem"></span>
+                        <h3>Rien de plus facile</h3>
+                        <p>Pour commencer l'aventure, cliquez sur le bouton "JOUER" : vous voila dans la peau de Moneo, serviteur de l'Empereur-dieu LETO II</p>
+                    </section>
+                    <section>
+                        <span class="icon solid major fa-code"></span>
+                        <h3>Accomplissez des quêtes</h3>
+                        <p>parlez, explorez, cherchez et enquêtez pour réussir les quêtes que les différents personnages du jeu vous soumettront. </p>
+                    </section>
+                    <section>
+                        <span class="icon solid major fa-lock"></span>
+                        <h3>Des fins différentes</h3>
+                        <p>Dans ce jeu point and click, Toutes les décisions ne sont pas cruciales, mais peuvent avoir des conséquences sur l'issue des quêtes principales.</p>
+                    </section>
+                    <section>
+                        <span class="icon solid major fa-link"></span>
+                        <h3>Dialogue avec les personnages</h3>
+                        <p>Ne pas quitter/recharger la page quand une conversation avec un personnage du jeu est engagée !</p>
+                    </section>
+                </div>
+                <ul class="actions">
+                    <li><a href="{{ path('app_tuto') }}" class="button">Tutoriel en image animée</a></li>
+                </ul>
+            </div>
+        </section>
+        <!-- three -->
+        <section id="soluce-jeu-dune" class="wrapper style2 spotlights">
+            <section>
+                <a href="#" class="image"><img src="/images/site/image-jeu-dune-site.png" alt="Dune jeu point and click : empereur-dieu LETO II" data-position="center center" /></a>
+                <div class="content">
+                    <div class="inner">
+                        <h2>Soluce des quêtes de Dune</h2>
+                        <p>Vous êtes bloqués en plein milieu d'une quête ? venez vous renseigner ici. ATTENTION SPOILER</p>
+                        <ul class="actions">
+                            <li><a href="{{ path('app_aidequetes') }}" class="button">Voir plus</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <!-- four -->
+        <section id="contact-dune" class="wrapper style1 fade-up">
+            <div class="inner">
+                <h2>Envoyez moi vos avis</h2>
+                <p>Rien de plus constructif qu'un avis bon ou mauvais pour m'aider à parfaire ce jeu. Un simple remerciement fait même très plaisir ^^</p>
+                <div class="split style1">
+                    <section>
+                        <form method="post">
+                            <div class="fields">
+                                <div class="field half">
+                                    <label for="name">Nom</label>
+                                    <input type="text" name="name" id="name" />
+                                </div>
+                                <div class="field half">
+                                    <label for="email">Email</label>
+                                    <input type="text" name="email" id="email" />
+                                </div>
+                                <div class="field">
+                                    <label for="message">Message</label>
+                                    <textarea name="message" id="message" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <ul class="actions">
+                                <li><a href="" class="sendemail button submit">Envoyer</a></li>
+                            </ul>
+                        </form>
+                    </section>
+                    <section>
+                        <ul class="contact">
+                            <li>
+                                <h3>Adresse</h3>
+                                <span>Planète Arrakis<br />
+											Palais impérial, 3ieme couloir à gauche<br />
+											</span>
+                            </li>
+                            <li>
+                                <h3>Email</h3>
+                                <a href="#">moneo.house.atreides@gmail.com</a>
+                            </li>
+                            <li>
+                                <h3>Social</h3>
+                                <ul class="icons">
+                                    <li><a href="https://twitter.com/MoneoAtreides" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                                    <li><a href="https://www.linkedin.com/in/moneo-atreides-4aa2bb1a7/" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
+                                    <li><a href="https://www.facebook.com/duneJeuPointAndClick/" class="icon brands fa-facebook"><span class="label">https://www.facebook.com/duneJeuPointAndClick/</span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+
+
+
+                        <div style="display:none;">
+                            <form method="post" id="loginForm">
+                                <label for="inputUsername">Username</label>
+                                <input type="text" name="username" id="inputUsername" value="{{ randomWords() }}" >
+                                <label for="inputPassword">Password</label>
+                                <input type="password" name="password" id="inputPassword" class="form-control" >
+
+                                <input type="hidden" name="_csrf_token"
+                                       value="{{ csrf_token('authenticate') }}"
+                                >
+                                <button class="btn btn-lg btn-primary" type="submit">
+                                    Sign in
+                                </button>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/presentation/homepage.js') }}"></script>
+{% endblock %}
+

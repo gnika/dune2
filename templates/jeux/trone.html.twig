@@ -1,0 +1,261 @@
+<div id='inThePlace'>
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            var arret = 0;
+            $('#ceremonieBegin').val(0);
+
+
+            $("#aloa").click(function() {
+                if($("#onTalk").val()==0 && $("#onMyTalk").val()==0 && $('#ceremonieBegin').val()==0){
+                    $("#texto").removeClass().addClass('aloaText');
+                    if (arret == 0 || arrestation==1) {
+                        $("#texto").show();
+                        $("#onTalk").val(1);
+                        if($("#diamant").length){
+                            $("#nayla").stopTime().parleFonction();
+                            $("#texto").removeClass().addClass('naylaText');
+                        }else{
+                            $('#yeuxMouve').val(1);
+                            $("#aloa").stopTime().parleFonction();
+                        }
+                        if( !$("#diamant").length)
+                            var request = $.ajax({
+                                url: '/ajaxquote',
+                                type: "GET",
+                                data: { idDiv: 'aloa', idPerso: 4, talk: 'muetFonction()', stopTalk: 'parleFonction()', XY: 1 },
+                            });
+                        else
+                            var request = $.ajax({
+                                url: '/ajaxquote',
+                                type: "GET",
+                                data: { idDiv: 'nayla', idPerso: 2, talk: 'muetFonction()', stopTalk: 'parleFonction()', repns:215 },
+                            });
+                        request.done(function(msg) {
+                            $("#texto").html(msg);
+                        });
+
+                    }else{
+                        arret = 0;
+                        $("#aloa").stopTime().muetFonction();
+                        $("#texto").invisible();
+                    }
+                }else if( $("#onMyTalk").val() == 1  && $('#textoLink').css('display') == 'none' ){
+                    $('#mesTexto a').addClass('clignote');
+                    setTimeout(function (){
+                        $('#mesTexto a').removeClass('clignote');
+
+                    }, 1000);
+                }else {
+                    $('#textoIn').addClass('clignoteBulle');
+                    setTimeout(function (){
+                        $('#textoIn').removeClass('clignoteBulle');
+
+                    }, 1000);
+                }
+            });
+
+
+            $("#leto_ii").click(function() {
+                if($("#onTalk").val()==0 && $("#onMyTalk").val()==0 && $('#ceremonieBegin').val()==0){
+                    $("#texto").removeClass().addClass('aloaText');
+                    if (arret == 0 || arrestation==1) {
+                        $("#texto").show();
+                        $("#onTalk").val(1);
+                        if($("#diamant").length){
+                            $("#nayla").stopTime().parleFonction();
+                            $("#texto").removeClass().addClass('naylaText');
+                        }else{
+                            $("#aloa").stopTime().parleFonction();
+                        }
+                        if( !$("#diamant").length)
+                            var request = $.ajax({
+                                url: '/ajaxquote',
+                                type: "GET",
+                                data: { idDiv: 'aloa', idPerso: 4, talk: 'muetFonction()', stopTalk: 'parleFonction()', repns: 249 },
+                            });
+                        else
+                            var request = $.ajax({
+                                url: '/ajaxquote',
+                                type: "GET",
+                                data: { idDiv: 'nayla', idPerso: 2, talk: 'muetFonction()', stopTalk: 'parleFonction()', repns:215 },
+                            });
+                        request.done(function(msg) {
+                            $("#texto").html(msg);
+                        });
+
+                    }else{
+                        arret = 0;
+                        $("#aloa").stopTime().muetFonction();
+                        $("#texto").invisible();
+                    }
+                }else if( $("#onMyTalk").val() == 1  && $('#textoLink').css('display') == 'none' ){
+                    $('#mesTexto a').addClass('clignote');
+                    setTimeout(function (){
+                        $('#mesTexto a').removeClass('clignote');
+
+                    }, 1000);
+                }else {
+                    $('#textoIn').addClass('clignoteBulle');
+                    setTimeout(function (){
+                        $('#textoIn').removeClass('clignoteBulle');
+
+                    }, 1000);
+                }
+            });
+
+            $("#representant_guilde, #representant_ix, #representant_tleilax, #representant_guesserit").click(function() {
+                if(!$("#diamant").length){}else {
+                    if ($("#onTalk").val() == 0 && $("#onMyTalk").val() == 0 && $('#ceremonieBegin').val() == 0) {
+                        $("#texto").removeClass().addClass('representant_guildeText');
+                        if (arret == 0 || arrestation == 1) {
+                            $("#texto").show();
+                            $("#onTalk").val(1);
+                                $("#nayla").stopTime().parleFonction();
+                                $("#texto").removeClass().addClass('naylaText');
+                                var request = $.ajax({
+                                    url: '/ajaxquote',
+                                    type: "GET",
+                                    data: {
+                                        idDiv: 'nayla',
+                                        idPerso: 2,
+                                        talk: 'muetFonction()',
+                                        stopTalk: 'parleFonction()',
+                                        repns: 215
+                                    },
+                                });
+                            request.done(function (msg) {
+                                $("#texto").html(msg);
+                            });
+
+                        }
+                    }
+                }
+            });
+
+
+
+
+
+            $("#nayla").click(function() {
+                if($("#onTalk").val()==0 && $("#onMyTalk").val()==0 && $('#ceremonieBegin').val()==0){
+                    $("#texto").removeClass().addClass('naylaText');
+                    if (arret == 0 || arrestation==1) {
+                        $("#texto").show();
+                        $("#onTalk").val(1);
+                        $("#nayla").stopTime().parleFonction();
+                        if(!$("#diamant").length)
+                            var request = $.ajax({
+                                url: '/ajaxquote',
+                                type: "GET",
+                                data: { idDiv: 'nayla', idPerso: 2, talk: 'muetFonction()',
+                                    stopTalk: 'parleFonction()' },
+                            });
+                        else
+                            var request = $.ajax({
+                                url: '/ajaxquote',
+                                type: "GET",
+                                data: { idDiv: 'nayla', idPerso: 2, talk: 'muetFonction()', stopTalk: 'parleFonction()', repns:215 },
+                            });
+
+                        request.done(function(msg) {
+                            $("#texto").html(msg);
+                        });
+
+                    }else{
+                        arret = 0;
+                        $("#nayla").stopTime().muetFonction([1200, 300, 600, 900]);
+                        $("#texto").invisible();
+                    }
+                }else if( $("#onMyTalk").val() == 1  && $('#textoLink').css('display') == 'none' ){
+                    $('#mesTexto a').addClass('clignote');
+                    setTimeout(function (){
+                        $('#mesTexto a').removeClass('clignote');
+
+                    }, 1000);
+                }else {
+                    $('#textoIn').addClass('clignoteBulle');
+                    setTimeout(function (){
+                        $('#textoIn').removeClass('clignoteBulle');
+
+                    }, 1000);
+                }
+            });
+
+
+
+            $("#onTalk").val(0);
+            $("#onMyTalk").val(0);
+
+
+            if($("#nayla").length)
+                $("#nayla").muetFonction();
+            $("#aloa").muetFonction([200, 600, 800, 1000]);
+            if($("#sayyaoto").length)
+                $("#sayyaoto").muetFonction([200, 400, 600, 800]);
+            $("#leto_ii").muetFonction([1000, 1500, 2000, 2500, 2500], [0, 0, -320, 0, -640, 0, -320, 0]);
+            if($("#representant_guesserit").length)
+                $("#representant_guesserit").muetFonction([300, 600, 900, 1200]);
+            if($("#representant_guilde").length)
+                $("#representant_guilde").muetFonction([1200, 300, 600, 900]);
+            if($("#representant_ix").length)
+                $("#representant_ix").muetFonction([1300, 400, 700, 1000, 1300]);
+            if($("#representant_tleilax").length)
+                $("#representant_tleilax").muetFonction([1200, 300, 600, 900]);
+
+
+            $("#diamant").click(function() {
+                if($('#ceremonieBegin').val()==0){
+                    $('#ceremonieBegin').val(1);
+                    if($("#onTalk").val()==0 && $("#onMyTalk").val()==0 && $("#impot").val()==0){
+                        $("#onTalk").val(1);
+                        var request = $.ajax({
+                            url: '/ajaxpaye',
+                            type: "GET",
+                            data: { idDiv: 'sayyaoto', idPerso: 2, talk: 'muetFonction()', stopTalk: 'muetFonction()' },
+                        });
+
+                        request.done(function(msg) {
+                            $("#texto").html(msg);
+                        });
+                    }
+                }
+            });
+
+        });
+
+        $("#mesTexto").html('<img src="/images/plan/trone_plan.png" />');
+        $("#plan").val('trone_plan');
+    </script>
+    </head>
+
+    <div id="{{ salle }}" >
+        <div id="perso"></div>
+        <div {% if app.user.impot >= 5 %} title="Vous devez cliquer sur le diamant violet avant de pouvoir sortir de la pièce." {% else %} title="Couloir sud" {% endif %} id="retour" alt="couloir2">&nbsp;</div>
+
+        {% for value in porteDansSalle %}
+            {% if value.poru_etat == 1 %}
+                {% set title = value.por_title_ouvert %}
+            {% else %}
+                {% set title = value.por_title_ferme %}
+            {% endif %}
+
+            <div title="{{ title }}" alt="{{ value.por_direction }}" id="porte_{{ value.por_id }}" class="porte_{{ value.por_id_type }}_{{ value.poru_etat }}"></div>
+        {% endfor %}
+
+        <div id="texto"></div>
+        {% for key, value in persoDansSalle %}
+            <div class="{{ key }}" id="{{ key }}"></div>
+        {% endfor %}
+
+        {% if app.user.impot >= 5 %}
+        <div id="diamant" title="Cliquez sur le diamant pour commencer la Cérémonie du partage" class="diamant"></div>
+        {% endif %}}
+
+        <input type='hidden' value='0' id='yeuxMouve' />
+        <input type='hidden' value='0' id='impot' />
+    </div>
+
+</div>

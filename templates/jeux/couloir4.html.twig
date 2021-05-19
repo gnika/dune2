@@ -1,0 +1,34 @@
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+
+    });
+
+    $("#mesTexto").html('<img src="/images/plan/couloir3_plan.png" />');
+    $("#plan").val('couloir3_plan');
+
+</script>
+</head>
+
+
+<div id="{{ salle }}">
+    <div id="perso"></div><p>&nbsp;</p>
+    <div id='retour_couloir4' title="Couloir nord" alt="couloir" style='z-index:1000'></div>
+    {% for value in porteDansSalle %}
+        {% if value.poru_etat == 1 %}
+            {% set title = value.por_title_ouvert %}
+        {% else %}
+            {% set title = value.por_title_ferme %}
+        {% endif %}
+
+        <div title="{{ title }}" alt="{{ value.por_direction }}" id="porte_{{ value.por_id }}" class="porte_{{ value.por_id_type }}_{{ value.poru_etat }}"></div>
+    {% endfor %}
+<div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_couloir2" id="{{ key }}"></div>
+    {% endfor %}
+</div>
+
+

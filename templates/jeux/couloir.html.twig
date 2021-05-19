@@ -1,0 +1,47 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+        var arret = 0;
+
+
+        $("#garde_couloir_1_couloir").dialogue('garde_couloir_1TextCouloir', 'garde_couloir_1_couloir', 12);
+
+    });
+
+    if($("#client1_couloir").length)
+        $("#client1_couloir").muetFonction([200, 400, 600, 800, 800], [-1, 0, 1, 0, 2, 0, -1, 0]);
+    if($("#garde_couloir_1_couloir").length)
+        $("#garde_couloir_1_couloir").muetFonction();
+
+    $("#mesTexto").html('<img src="/images/plan/couloir_plan.png" />');
+    $("#plan").val('couloir_plan');
+
+</script>
+</head>
+
+
+<div id="{{ salle }}">
+    <div class='vers_hangar' id='vers_hangar' alt="hangar" title="Hangar">&nbsp;</div>
+    <div id="perso"></div><p>&nbsp;</p>
+    <div id='retour_couloir' alt="trone" title="Salle du trône" style='z-index:1000'></div>
+    <div class='vers_couloir4' id='vers_couloir4' alt="couloir4" title="Couloir" style='z-index:1000'></div>
+
+	{% for value in porteDansSalle %}
+        {% if value.poru_etat == 1 %}
+            {% set title = value.por_title_ouvert %}
+        {% else %}
+            {% set title = value.por_title_ferme %}
+        {% endif %}
+
+        <div title="{{ title }}" alt="{{ value.por_direction }}" id="porte_{{ value.por_id }}" class="porte_{{ value.por_id_type }}_{{ value.poru_etat }}"></div>
+{% endfor %}
+<div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_couloir" id="{{ key }}_couloir"></div>
+    {% endfor %}
+</div>
+
+

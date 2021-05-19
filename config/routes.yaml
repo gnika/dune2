@@ -1,0 +1,212 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+front:
+  resource: 'routes/front.yaml'
+  prefix:   /{_locale}
+  requirements:
+    _locale: '%app_locales%'
+
+jeux:
+  resource: 'routes/jeu.yaml'
+  requirements:
+    methods: POST
+
+heroesofpixel:
+  resource: 'routes/heroesofpixel.yaml'
+
+deletejoueur:
+  path: /deletejoueur/id/{id}
+  controller: App\Controller\IndexController::deletejoueur
+  defaults:
+    id:
+
+deletejoueurs:
+  path: /deletejoueur/
+  controller: App\Controller\IndexController::deletejoueur
+
+
+homepage:
+  path: /{_locale}
+  requirements:
+    _locale: '%app_locales%'
+  controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+  defaults:
+    template: index/home.html.twig
+    _locale: '%locale%'
+
+
+app_sendemail:
+  path: /sendemail
+  controller: App\Controller\IndexController::sendemail
+  methods: POST
+
+
+majheure:
+  path: /majheure
+  controller: App\Controller\AjaxController::majheure
+  methods: POST
+
+messages:
+  path: /messages
+  controller: App\Controller\AjaxController::messages
+
+affichetabvaisseau:
+  path: /affichetabvaisseau
+  controller: App\Controller\CarteController::affichetabvaisseau
+
+inforessourcesuser:
+  path: /inforessourcesuser
+  controller: App\Controller\UserController::inforessourcesuser
+
+infohumeur:
+  path: /infohumeur
+  controller: App\Controller\UserController::infohumeur
+
+journaladd:
+  path: /journaladd
+  controller: App\Controller\AjaxController::journaladd
+
+tryagain:
+  path: /tryagain
+  controller: App\Controller\UserController::tryagain
+
+ajaxquote:
+  path: /ajaxquote
+  controller: App\Controller\AjaxController::ajaxquote
+
+ajaxpaye:
+  path: /ajaxpaye
+  controller: App\Controller\AjaxController::ajaxpaye
+
+ajaximpot:
+  path: /ajaximpot
+  controller: App\Controller\AjaxController::ajaximpot
+
+ajaxusermaj:
+  path: /ajaxusermaj
+  controller: App\Controller\AjaxController::ajaxusermaj
+
+ajaxusersugg:
+  path: /ajaxusersugg
+  controller: App\Controller\AjaxController::ajaxusersugg
+
+cartedata:
+  path: /cartedata
+  controller: App\Controller\CarteController::cartedata
+
+cartedataone:
+  path: /cartedataone
+  controller: App\Controller\CarteController::cartedataone
+
+ajaxcarte:
+  path: /ajaxcarte
+  controller: App\Controller\CarteController::ajaxcarte
+
+ajaxcarteenvoitroupe:
+  path: /ajaxcarteenvoitroupe
+  controller: App\Controller\CarteController::ajaxcarteenvoitroupe
+
+envoiflotte:
+  path: /envoiflotte
+  controller: App\Controller\CarteController::envoiflotte
+
+envoidiplomate:
+  path: /envoidiplomate
+  controller: App\Controller\CarteController::envoidiplomate
+
+achatvaisseau:
+  path: /achatvaisseau
+  controller: App\Controller\AjaxController::achatvaisseau
+
+achatobjet:
+  path: /achatobjet
+  controller: App\Controller\AjaxController::achatobjet
+
+objectsuser:
+  path: /objectsuser
+  controller: App\Controller\UserController::objectsuser
+
+journal:
+  path: /journal
+  controller: App\Controller\AjaxController::journal
+
+journaldelete:
+  path: /journaldelete
+  controller: App\Controller\AjaxController::journaldelete
+
+ajaxporte:
+  path: /ajaxporte
+  controller: App\Controller\AjaxController::ajaxporte
+
+addObject:
+  path: /addObject
+  controller: App\Controller\AjaxController::addObject
+
+hormones:
+  path: /hormones
+  controller: App\Controller\AjaxController::hormones
+
+tournevis:
+  path: /tournevis
+  controller: App\Controller\AjaxController::tournevis
+
+indice:
+  path: /indice
+  controller: App\Controller\AjaxController::indice
+
+livre:
+  path: /livre
+  controller: App\Controller\AjaxController::livre
+
+killrat:
+  path: /killrat
+  controller: App\Controller\AjaxController::killrat
+
+clecouloircachottake:
+  path: /clecouloircachottake
+  controller: App\Controller\AjaxController::clecouloircachottake
+
+clecouloircachot:
+  path: /clecouloircachot
+  controller: App\Controller\AjaxController::clecouloircachot
+
+journalprisonnier:
+  path: /journalprisonnier
+  controller: App\Controller\AjaxController::journalprisonnier
+
+killserrure:
+  path: /killserrure
+  controller: App\Controller\AjaxController::killserrure
+
+marquepage:
+  path: /marquepage
+  controller: App\Controller\AjaxController::marquepage
+
+chakobsa:
+  path: /chakobsa
+  controller: App\Controller\AjaxController::chakobsa
+
+inscrit:
+  path: /inscrit
+  controller: App\Controller\AjaxController::inscrit
+
+replaceRepresentants:
+  path: /replaceRepresentants
+  controller: App\Controller\AjaxController::replaceRepresentants
+
+achatheroes:
+  path: /achatheroes
+  controller: App\Controller\HeroesofpixelController::achatheroes
+
+opensafe:
+  path: /opensafe
+  controller: App\Controller\AjaxController::opensafe
+
+killsafe:
+  path: /killsafe
+  controller: App\Controller\AjaxController::killsafe
+
+majquete:
+  path: /majquete
+  controller: App\Controller\AjaxController::majquete

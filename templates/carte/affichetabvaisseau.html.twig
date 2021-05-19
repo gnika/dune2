@@ -1,0 +1,36 @@
+{% set nbPlanete = 0 %}
+{% set epiceJour = 0 %}
+{% set explorationrestant = app.user.exploration - encoursExploration %}
+
+{% for value in myPlanetes %}
+    {% if value.cau_etat == 1 %}
+        {% set epiceJour = epiceJour + value.ca_epice_jour %}
+        {% set nbPlanete = nbPlanete +1 %}
+    {% endif %}
+{% endfor %}
+
+<table id='force'>
+    <tr><th colspan='2'>RAPPORT DE FORCE</th></tr>
+    <tr>
+        <td>Vous possédez :</td><td>{{nbPlanete}} planètes</td><td>{{epiceJour}} épice/jour</td>
+    </tr>
+    <tr>
+        <td></td><td colspan=2><span id='nbT'>{{app.user.troupe}}</span> Troupes </td>
+    </tr>
+    <tr>
+        <td>équipe d'exploration disponible</td>
+        <td>
+            {% for i in 0..explorationrestant %}
+                <img src="/images/vaisseau/explorateur.png" />
+            {% endfor %}
+        </td>
+    </tr>
+    <tr>
+        <td> <img class="ship" title="Vaisseau" alt="Vaisseau" src="/images/vaisseau/ship.png" /></td><td {% if encoursAttaque is defined %} class="encoursAttaque" {% endif %}>{{app.user.vaisseau}}</td>
+    </tr>
+{% if app.user.troupe > 0 %}
+    <tr>
+        <td>Troupes</td><td>{{app.user.troupe}} <img src="/images/vaisseau/troupe.png" /></td>
+    </tr>
+{% endif %}
+</table>

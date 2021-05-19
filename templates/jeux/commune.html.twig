@@ -1,0 +1,99 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+        var arret = 0;
+
+        $("#menace_guilde").dialogue('menace_guildeText', 'menace_guilde', 23, '',
+            [], [-154, 0, -308, 0, -154, 0, 0, 0], [], [-154, -280, -308, -280, -154, -280, 0, -280]);
+
+        $("#fremen1").dialogue('fremen1Text', 'fremen1', 18, '', [],
+                [-140, 0, 0, 0, -140, 0, -280, 0],
+                [],
+                [0, -270, -140, -270, -280, -270, -140, -270],
+            );
+
+        $(function() {
+            $(document).on("click","#openTrappe",function(e){
+
+                    if($('#onTalk').val()==0){
+                        $('#onTalk').val(1);
+                        dstination='couloircachot';
+                        var request = $.ajax({
+                            url: '/'+dstination,
+                            type: "GET"
+                        });
+                        request.done(function(msg) {
+                            $("#inThePlace").fadeOut(1000);
+                            setTimeout(function(){
+                                $("#inThePlace").hide();
+                                $("#inThePlace").html(msg);
+                                $("#inThePlace").fadeIn(1000);
+                            }, 1000);
+
+                        });
+                    }
+
+            })
+        });
+    });
+
+    if($("#sayyaoto").length){
+        $("#sayyaoto").dialogue('sayyaotoTextCouloir', 'sayyaoto', 3);
+        $("#sayyaoto").muetFonction();
+    }
+    if($("#menace_guilde").length)
+        $("#menace_guilde").muetFonction([], [-154, 0, -308, 0, -154, 0, 0, 0]);
+
+    if($("#fremen1").length)
+        $("#fremen1").muetFonction([], [-140, 0, 0, 0, -140, 0, -280, 0]);
+
+    {% if nop >= 1 %}
+        $("#fremen1").remove();
+    {% endif %}
+
+    var heureActu=$('.progBarText').html();
+    if(heureActu=="12h30" || heureActu=="16h00" || heureActu=="10h00" || heureActu=="12h00"  || heureActu=="18h00"  || heureActu=="20h00" )
+        $("#menace_guilde").remove();
+
+    $("#mesTexto").html('<img src="/images/plan/commune_plan.png" />');
+    $("#plan").val('commune_plan');
+</script>
+</head>
+
+<div id="{{ salle }}">
+    <div id="perso"></div><p>&nbsp;</p>
+    <div title="Couloir sud" alt="couloir2" id="vers_couloir2" class="vers_couloir2"></div><p>&nbsp;</p>
+        <div title="Couloir" {% if nopEntree == 1 %} alt="couloir3" {% endif %} id='retour_commune' style='z-index:1000'></div>
+
+    {% for value in porteDansSalle %}
+        {% if value.poru_etat == 1 %}
+            {% set title = value.por_title_ouvert %}
+        {% else %}
+            {% set title = value.por_title_ferme %}
+        {% endif %}
+
+        <div title="{{ title }}" alt="{{ value.por_direction }}" id="porte_{{ value.por_id }}" class="porte_{{ value.por_id_type }}_{{ value.poru_etat }}"></div>
+    {% endfor %}
+
+
+    <div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_commune" id="{{ key }}"></div>
+    {% endfor %}
+
+
+
+    {% for porte in porteDansSalle %}
+        {% if porte.por_id == 9 and porte.poru_etat == 1 %}
+            <div title="Couloir sous-sol" alt="couloircachot" id="openTrappe">&nbsp;</div>
+        {% endif %}
+    {% endfor %}
+
+    <div title="Bibliothèque" {% if nop != 1 %} alt="bibliotheque" {% endif %} id="vers_biblio" class='vers_biblio' style='z-index:1000'></div>
+    <div title="Bar" class='vers_bar' {% if nop != 1 %} alt="bar" {% endif %} id="vers_bar" style='z-index:1000'></div>
+</div>
+
+

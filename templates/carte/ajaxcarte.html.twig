@@ -1,0 +1,196 @@
+
+<div id='textoIn'>
+    {% if diplomate != 0 %}
+        {% set text = 'L\'envoi d\'un diplomate coûte au royaume 500 <img src="/images/epice.png" title="Epice">. Etes vous sûr de vouloir payer ?
+		<br/><p><div class="choixDiplomate"><div class="diplomateYes"><a onclick="return false" href="">Envoyer un diplomate !</a></div> <div class="diplomateNo"><a onclick="return false" href="">après tout, peut-être pas...</a></div></div></p>' %}
+    {% elseif troupe != 0 %}
+        {% if planete.cau_envoi != 0 %}
+            {% set text = 'Un commando est déjà en cours de route sur cette planète///Pourquoi ne pas attendre qu\'il arrive ?' %}
+         {% elseif app.user.troupe < 50 %}
+            {% set text = 'Vous ne possédez pas assez de troupes pour en envoyer///Pourquoi ne pas en recruter ?' %}
+         {% else %}
+            {% set text = 'combien de truitesses voulez-vous envoyer ?<br/>
+                    <p><div class="choixTroupe"><a onclick="return false" class="envoi50" id="envoi50" href="">50</a>
+                        <a onclick="return false" class="envoi100" id="envoi100" href="">100</a>
+                        <a onclick="return false" class="envoi250" id="envoi250" href="">250</a>
+                        <a onclick="return false" class="envoi500" id="envoi500" href="">500</a></div>' %}
+                    <script>$("#textoLink").hide();</script>
+            {% endif %}
+    {% elseif quid == 3 %}
+        {% set text = 'Voulez vous envoyer la flotte attaquer la planète '  ~ planete.ca_nom ~ ' ?<br/><br/><p><div class="attaqueYes"><a onclick="return false" href="">Envoyez la flotte !</a></div> <div class="attaqueNo"><a onclick="return false" href="">après tout, peut-être pas...</a></div></p>' %}
+        <script>$('#textoLink').hide();</script>
+    {% elseif quid == 4 %}
+        {% set text = 'Voulez vous envoyer un vaisseau de reconnaissance sur la planète '~ planete.ca_nom ~ ' ?<br/><p><div id="explorerYes" class="explorerYes"><a onclick="return false" href="">Envoyez le vaisseau de reconnaissance !</a></div> <div class="explorerNo"><a onclick="return false" href="">après tout, peut-être pas...</a></div></p>' %}
+    {% endif %}
+{% set pieces = text|split('///') %}
+{{ pieces.0|raw }}
+</div>
+{% if pieces|length > 1 %}
+    <a href='' onclick='return false;' id='textoLink'>suite ... </a>
+{% endif %}
+<input type='hidden' id='stepDial' value='0'/>
+{% if pieces|length > 1 %}
+    <input type='hidden' id='closeWindow' value='0'/>
+{% else %}
+    <input type='hidden' id='closeWindow' value='1'/>
+{% endif %}
+<input type='hidden' id='maxDial' value='{{ pieces|length }}'/>
+
+
+
+<script type="text/javascript">
+
+    $("#texto").show();
+    $("#texto").removeClass().addClass('commandantTextCarte');
+    $("#commandant").stopTime().parleFonction();
+    $("#texto").css('background-color', '#FFFFFF');
+    $("#texto").visible();
+
+    $("#textoLink").click(function() {
+        var idClique=this.id;
+        if(idClique=='textoLink'){
+            var tab = {{ pieces|json_encode(constant('JSON_PRETTY_PRINT'))|raw }};
+            var inTex='textoIn';
+            var stepDial='stepDial';
+            var maxDial='maxDial';
+            var closeWindow='closeWindow';
+        }
+
+        $("#"+inTex).empty();
+        var newVal=$("#"+stepDial).val();
+        if(newVal < $("#"+maxDial).val()){
+            newVal=parseInt(newVal)+1;
+            $("#"+stepDial).val(newVal);
+
+            $("#"+inTex).html(tab[newVal]);
+        }
+
+        if(newVal+1==$("#"+maxDial).val()){
+            $("#"+idClique).hide();
+            $("#"+closeWindow).val(1);
+        }
+    })
+
+    $('.envoi50, .envoi250, .envoi100, .envoi500').click(function(){
+        var nbTroupe=0;
+        var days='1 jour';
+        {% if planete.ca_zoom >0 %}
+            var days='2 jours';
+        {% endif %}
+        if(this.id=='envoi50')nbTroupe=50;else if(this.id=='envoi100')nbTroupe=100;else if(this.id=='envoi250')nbTroupe=250;else if(this.id=='envoi500')nbTroupe=500;
+        var request = $.ajax({
+            url: '/ajaxcarteenvoitroupe',
+            type: "GET",
+            data: { nb: nbTroupe, id: {{ planete.ca_id }} },
+    });
+        request.done(function(msg) {
+            if(msg==1)
+                var txt='<div id="fermezmoi">Un commando est déjà en cours de route sur {{ planete.ca_nom}} </div>';
+            else if(msg==2){
+                var txt='<div id="fermezmoi">Nous envoyons de suite un commando pour défendre {{ planete.ca_nom}} ! ils sera sur place dans '+days+'</div>';
+                vaisseauDisplay();
+            }
+            else if(msg==3)
+                var txt='<div id="fermezmoi">Nous ne pouvons pas envoyer de suite un commando pour défendre {{ planete.ca_nom}}</div>';
+            else if(msg==4)
+                var txt='<div id="fermezmoi">Nous ne possédons pas assez de troupes pour en envoyer autant sur {{ planete.ca_nom}}</div>';
+
+            $("#textoIn").empty();
+            $("#textoIn").html(txt);
+        });
+        $("#closeWindow").val(0);
+    })
+
+    $(".attaqueYes, .explorerYes").click(function() {
+        if(this.id=='explorerYes')
+            var action=4;
+        else
+            action=3;
+
+        var txt ='';
+        var days='1 jour';
+        {% if planete.ca_zoom >0 %} var days='2 jours';
+        {% endif %}
+        var request = $.ajax({
+            url: '/envoiflotte',
+            type: "GET",
+            data: {idPlanete: {{ planete.ca_id }}, actionId: action}
+    });
+        request.done(function(msg) {
+
+            if(msg!='' && msg==3){
+                var txt='<div id="fermezmoi">Notre flotte est déjà en cours d\'expédition</di>';
+            }
+            else if(msg!='' && msg==4){
+                var txt='<div id="fermezmoi">Nous ne possédons pas assez de vaisseau d\'exploration</di>';
+            }
+            else if(msg!='' && msg==5){
+                var txt='<div id="fermezmoi">Une opération est déjà en cours sur {{ planete.ca_nom}}</di>';
+            }
+            else if(action==3){//animation de vaisseau à prévoir
+                var txt='<div id="fermezmoi">Nos vaisseaux sont lancés! ils seront sur {{ planete.ca_nom}} dans '+days+'</di>';
+                vaisseauDisplay();
+                $('.planete_'+{{ planete.ca_id}}).addClass('attaqueCarte');
+            }
+            else{//animation de vaisseau à prévoir
+                var txt='<div id="fermezmoi">Le vaisseau de reconnaissance est parti! ils sera sur {{ planete.ca_nom}} dans '+days+'</di>';
+                vaisseauDisplay();
+                $('.planete_'+{{ planete.ca_id}}).addClass('reconnaissance');
+            }
+
+            $("#textoIn").empty();
+            $("#textoIn").html(txt);
+        });
+        $("#closeWindow").val(0);
+    })
+
+
+    $(".diplomateYes").click(function() {
+
+        var days='1 jour';
+        {% if planete.ca_zoom >0 %}
+            var days='2 jours';
+        {% endif %}
+        var request = $.ajax({
+            url: '/envoidiplomate',
+            type: "GET",
+            data: {idPlanete: {{ planete.ca_id }}}
+    });
+        request.done(function(msg) {
+            if(msg==1) {
+                var txt = '<div id="fermezmoi">Notre diplomate est en route. Il sera sur {{ planete.ca_nom }} dans ' + days + '</div>';
+                $('.planete_' +{{ planete.ca_id }}).addClass('diplomate');
+            }
+            else if(msg==2)
+                var txt='<div id="fermezmoi">Un diplomate est déjà en cours de mission ou attends votre débriefing</div>';
+            else if(msg==3)
+                var txt='<div id="fermezmoi">Une opération militaire est déjà en cours sur {{ planete.ca_nom}}</div>';
+
+
+            $("#textoIn").empty();
+            $("#textoIn").html(txt);
+            afficheSpice();
+        });
+        $("#closeWindow").val(0);
+    })
+
+    $(".attaqueNo, .diplomateNo, .explorerNo").click(function() {
+        $("#closeWindow").val(1);
+    })
+
+    $("#textoIn").click(function() {
+        if($("#fermezmoi").length)
+            $("#closeWindow").val(1);
+        if($("#closeWindow").val()==1){
+            $("#commandant").stopTime().muetFonction();
+            $("#texto").invisible();
+            $("#textoIn").hide();
+            $("#onTalk").val(0);
+            $("#onMyTalk").val(0);
+            $("#onAutoTalk").val(1);
+
+        }
+
+    })
+
+</script>

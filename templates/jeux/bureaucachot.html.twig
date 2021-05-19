@@ -1,0 +1,93 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+
+        var arret = 0;
+
+        $("#bourreau").dialogue('bourreau', 'bourreau', 28);
+
+        $("#marquepage").click(function() {
+            if($("#onTalk").val()==0 && $("#onMyTalk").val()==0){
+
+                if($("#bourreau").length){
+
+                    $("#texto").removeClass().addClass('bourreau');
+                    if (arret == 0 || arrestation==1) {
+                        $("#texto").show();
+                        $("#onTalk").val(1);
+                        $("#bourreau").stopTime().parleFonction();
+
+                        var request = $.ajax({
+                            url: '/ajaxquote',
+                            type: "GET",
+                            data: { idDiv: 'bourreau', idPerso: 28, talk: 'muetFonction()', stopTalk: 'parleFonction()', repns: 246 },
+                        });
+                        request.done(function(msg) {
+                            $("#texto").html(msg);
+                        });
+
+                        var dstination='cellule';
+                        var request = $.ajax({
+                            url: '/'+dstination,
+                            type: "GET"
+                        });
+                        request.done(function(msg) {
+                            $("#inThePlace").fadeOut(2000);
+                            setTimeout(function(){
+                                $("#inThePlace").hide();
+                                $("#inThePlace").html(msg);
+                                $("#inThePlace").fadeIn(2000);
+                            }, 2000);
+
+                        });
+
+
+                    }else{
+                        arret = 0;
+                        $("#bourreau").stopTime().mouvArretParleGue();
+                        $("#texto").invisible();
+                    }
+                }else{
+                    marquepage();
+                }
+            }
+        });
+
+
+    });
+
+    if($("#bourreau").length)
+        $("#bourreau").muetFonction();
+
+    $("#mesTexto").html('<img src="/images/plan/bourreau_bureaucachot.png" />');
+    $("#plan").val('bourreau_bureaucachot');
+
+</script>
+</head>
+
+<div id="{{ salle }}" >
+    <div id="perso"></div><p>&nbsp;</p>
+    <div title="Couloir cachot" alt="couloircachot" id='retour_commune' style='z-index:1000'></div>
+
+{% for value in porteDansSalle %}
+        {% if value.poru_etat == 1 %}
+            {% set title = value.por_title_ouvert %}
+        {% else %}
+            {% set title = value.por_title_ferme %}
+        {% endif %}
+
+        <div title="{{ title }}" alt="{{ value.por_direction }}" id="porte_{{ value.por_id }}" class="porte_{{ value.por_id_type }}_{{ value.poru_etat }}"></div>
+{% endfor %}
+
+
+<div id="texto"></div>
+{% for key, value in persoDansSalle %}
+    <div class="{{ key }}_bureaucachot" id="{{ key }}"></div>
+{% endfor %}
+    <div id="marquepage">&nbsp;</div>
+</div>
+
+

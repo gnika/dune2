@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'homepage' %}
+
+
+
+{% block body %}
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <section id="main" class="wrapper">
+        <div class="inner">
+            <h1 class="major">Dune le jeu point and click: mecanisme</h1>
+            <span class="image fit"><img src="/images/site/dune_point_and_click_jeu_leto.jpg" alt="dune point and click: tutoriel" /></span>
+            <blockquote>
+                Pour pouvoir évoluer dans l'univers de <strong>Dune le jeu point and click</strong>, il vous faut savoir comment bouger de pièces en pièces,
+                dialoguer avec les personnages ou encore attribuer les serviteurs aux différentes maisons etc...
+            </blockquote>
+
+
+            <h2>Dune : Dialoguer avec les différents personnages</h2>
+            <p>Pour interagir dans l'univers de Dune le jeu, Vous devrez communiquer avec tous les personnages que vous rencontrez</p>
+
+            <p>En tant que premier serviteur de l'Empereur-dieu, vous devez questionner et accomplir les différentes quêtes qui vous sont proposées.
+                Vous avez été conditionné pour cette tâche, vous, Moneo, gestionnaire de l'administration de l'Empereur-dieu LETO II </p>
+
+            <p><a class="commentJouer" href="{{ path('app_resume') }}">Résumé du jeu</a></p>
+            <p><a class="commentJouer" href="{{ path('app_personnages') }}">Les différents personnages du palais</a></p>
+            <p><a class="commentJouer" href="{{ path('app_conquete') }}">Conquérir pour réussir</a></p>
+
+            <h3>Parler avec un personnage</h3>
+
+            <p>Pour communiquer avec un des personnage du palais de LETO II, il vous suffit de cliquer dessus<br/>Pour poursuivre le dialogue, il vous faut cliquer sur la bulle qui contient le texte du personnage</p>
+            <img src="/images/explications/dialogue.gif" alt="Dune Empereur-dieu: tuto" title="Dune Empereur-dieu: tuto" />
+            <p>Pour participer au dialogue, il vous faut sélectionner une des réponses proposées en bas du site vous permettant de continuer le dialogue</p>
+            <img src="/images/explications/reponse.gif" alt="Dune Empereur-dieu: tuto" title="Dune Empereur-dieu: tuto" />
+            <p>Une fois qu'il n'y a plus de propositions de dialogue en bas du site, et que la bulle du personnage est fermée, vous êtes libre de vous déplacer de nouveau</p>
+            <p class='warning'>
+                <button class="button fit">Ne pas quitter/recharger la page quand une conversation est engagée</button>
+            </p>
+            <h2>Dune : Se déplacer au palais de l'Empereur-dieu LETO II</h2>
+            <p>Pour parcourir les différentes salles du Palais de l'Empereur-dieu LETO II, il vous suffit de cliquer sur le tapis rouge, en bas au centre de la pièce<br/>
+                Vous ne pouvez pas vous déplacer quand la cérémonie du partage est en cours ou quand un dialogue est engagé</p>
+            <h2>Dune : Politique au palais de l'Empereur-dieu LETO II</h2>
+            <p>Vous aurez à votre disposition trois éléments à assigner aux différentes maisons: Escortes, Influence, et Serviteurs<br/>
+                Pour assigner un de ces éléments à la maison que vous souhaitez, rendez-vous à la salle de contrôle qui se trouve à droit de la salle du trône<br/>
+                Une fois dans cette pièce, sélectionnez une des 4 maisons majeures pour pouvoir lui assigner de l'Influence, des Escortes ou des Serviteurs</p>
+            <img src="/images/explications/selection.gif" alt="Dune Empereur-dieu: tuto" title="Dune Empereur-dieu: tuto" />
+            <p>Une fois la maison sélectionnée, vous pouvez agir de deux manières différentes</p>
+            <h3>ASSIGNER DE L'INFLUENCE</h3>
+            <p>Au palais de l'Empereur-dieu, les maisons doivent se répartir des Escortes, de l'Influence et des Serviteurs entre elles</p>
+            <p>Vous êtes en charge de cette tâche. Pour ce faire, il vous suffit de glisser l'item voulu vers la barre disposée à cet effet. Plus une maison possède de l'Influence, plus sa barre de confiance augmente</p>
+            <img src="/images/explications/assigne.gif" alt="Dune Empereur-dieu: tuto" title="Dune Empereur-dieu: tuto" />
+            <h3>ASSIGNER UNE QUANTITE D'EPICE</h3>
+            <p>A chaque cérémonie du partage, l'Empereur-dieu, par votre intermédiaire, distribue de l'épice aux maisons majeures.
+                Vous devez pour chaque maison assigner une quantité d'épice qui sera distribuée lors de la prochaine cérémonie.</p>
+
+            <img src="/images/explications/quantite.gif" alt="Dune Empereur-dieu: tuto" title="Dune Empereur-dieu: tuto" />
+            <p>ATTENTION: si une maison ne reçoit pas d'épice lors de la cérémonie du partage, votre corruption augmente et vous perdrez de la renommée à chaque cérémonie de partage</p>
+            <br/>
+            <a href="#" class="button primary">Vous voila fin prêt, vous, MONEO, à vous mettre au service de votre Empereur-dieu LETO II !</a>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

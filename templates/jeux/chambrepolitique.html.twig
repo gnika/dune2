@@ -1,0 +1,65 @@
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+
+    });
+
+    var arret = 0;
+    if($("#conseiller_politique").length)
+        $("#conseiller_politique").muetFonction([], [-10, 0, -150, 0, -290, 0, -150, 0]);
+
+
+    $("#conseiller_politique").dialogue('conseillerText', 'conseiller_politique', 30, '', [],
+        [-10, 0, -150, 0, -290, 0, -150, 0],
+        [],
+        [-10, -270, -150, -270, -290, -270, -150, -270],
+    );
+
+    if($("#conseiller_politique").length)
+        $("#safe").dialogue('conseillerText', 'safe conseiller_politique', 30, 263, [],
+            [-10, 0, -150, 0, -290, 0, -150, 0],
+            [],
+            [-10, -270, -150, -270, -290, -270, -150, -270],
+        );
+
+    $("#plan").val('conseillerpolitique');
+    $("#mesTexto").html('<img src="/images/plan/conseillerpolitique.png" />');
+    $("#documents.nobrule, #documents:not(.docbrule)").click(function() {
+        addObject(28, 'Vous prenez les documents');
+        $(this).hide();
+    });
+
+    $(document).on("click", '#documents.docbrule', function(event) {
+        majQuete(4, 30, 3, 'Les documents ont brûlés.');
+        $(this).hide();
+    });
+
+</script>
+</head>
+
+
+<div id="{{ salle }}">
+    <div id="perso"></div><p>&nbsp;</p>
+    <div id='retour_marches' alt="couloir3" title="Couloir" style='z-index:1000'></div>
+
+    <div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_chambre" id="{{ key }}"></div>
+    {% endfor %}
+    {% if openSafe == 1 %}
+        {% if docs == 0 and docBrule == 0 and docpris == 0 %}
+            <img src="/images/objet/documents.png" id="documents" class="nobrule" />
+            {% elseif docs == 0 and docBrule == 1 and docpris == 0 %}
+                <img src="/images/objet/docbrule.png" class="docbrule" id="documents" />
+        {% endif %}
+    <img src="/images/safe_open.png" id="safe" class="open_safe" />
+    {% else %}
+        <img src="/images/objet/documents.png" id="documents" class="hide" />
+        <img src="/images/safe.png" id="safe" />
+    {% endif %}
+    <div id="serrure"></div>
+</div>
+
+

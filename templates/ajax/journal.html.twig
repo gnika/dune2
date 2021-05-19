@@ -1,0 +1,185 @@
+<div id='inThePlace'>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $("#onTalk").val(0);
+            $("#onMyTalk").val(0);
+
+            $("#journal .warning").click(function() {
+                var request = $.ajax({
+                    url: '/journaldelete',
+                    type: "GET"
+                });
+                request.done(function(msg) {
+                    $("#journal .warning").fadeOut(1000);
+                    setTimeout(function(){
+                        // $("#journal .warning").hide();
+                    });
+                });
+            });
+
+            $(".retour_journal").click(function() {
+                if($('#onTalk').val()==0){
+                    $('#onTalk').val(1);
+                    var request = $.ajax({
+                        url: '/{{ nomSalleU }}',
+                        type: "GET"
+                    });
+                    request.done(function(msg) {
+                        $("#inThePlace").fadeOut(1000);
+                        setTimeout(function(){
+                            $("#inThePlace").hide();
+                            $("#inThePlace").html(msg);
+                            $("#inThePlace").fadeIn(1000);
+                        }, 1000);
+
+                    });
+                }
+            });
+
+
+        });
+
+
+
+    </script>
+    </head>
+    <div id="{{salle}}">
+        <div class='rapport'>
+            {% set json =  getJournal %}
+            <h3>Journal de bord</h3>
+            {% if json|length > 0 %}
+                {% set i = 0 %}
+                {% for jj in json.recompense %}
+                    {% set jj = jj|replace({'<br><br>': '<br>'}) %}
+                    {% if i is divisible by(2) %}
+                        {% set class = 'pairJ' %}
+                    {% else %}
+                         {% set class = 'impairJ' %}
+                    {% endif %}
+                    <div class="{{ class}}">{{ jj|raw }}</div>
+                    {% set i = i+1 %}
+                {% endfor %}
+            {% else %}
+                Aucun retour pour le moment
+            {% endif %}
+
+
+            {%  set nbPlanete = 0 %}
+            {%  set epiceJour = 0 %}
+            {% for star in myPlanetes %}
+                {% if star.cau_etat == 1 %}
+                    {% set epiceJour= epiceJour + star.ca_epice_jour %}
+                    {%  set nbPlanete = nbPlanete+1 %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="displayCorruption">
+            {% if app.user.corruption >= 4 %}
+                {% set corrup = 4 %}
+                {% set alt = "Vous vendriez père et mère pour une bouchée de pain. Votre âme est aussi noire que la gueule d'un ver des sables." %}
+            {% else %}
+                {% set corrup = app.user.corruption %}
+            {% endif %}
+
+            {% if app.user.corruption == 0 %}
+            {% set alt = "Votre intégrité est exemplaire et vous êtes digne d'être appelé intime de l'Empereur-dieu." %}
+            {% endif %}
+
+            {% if app.user.corruption == 1 %}
+            {% set alt = "Votre intégrité accepte des raccourcis parfois nécessaires à l'exercice de vos fonctions." %}
+            {% endif %}
+
+            {% if app.user.corruption == 2 %}
+            {% set alt = "Vous regardez avec une certaine amertume l'époque ou vous pouviez vous regarder dans le miroir sans avoir à rougir de vos actions." %}
+            {% endif %}
+
+            {% if app.user.corruption == 3 %}
+            {% set alt = "Clairement, vous abusez de votre situation. Vous êtes secrêtement haï par toute une partie du royaume." %}
+            {% endif %}
+
+            Corruption : <div alt="{{ alt }}" title="{{ alt }}" class=" corruptionjournal corrup{{ corrup }}" > </div>
+            {% if app.user.corruption > 0 %}
+
+            <p>Vous perdez {{ app.user.corruption * 150 }} <img src="/images/credit.png" alt="Crédit" title="Crédit" />
+                par Cérémonie de partage</p>
+
+            {% else %}
+                <p>Vous n'avez pas été corrompu</p>
+            {% endif %}
+</div>
+        <div class="displayCorruption">
+            {% if eau == 0 and credit == 0 and troupe == 0  and renommee == 0 %}
+                <p>Vos bâtiments ne rapportent aucun
+                    <img src="/images/credit.png" alt="Crédit" title="Crédit" />
+                    <img src="/images/eau.png" alt="eau" title="Eau" />
+                    <img src="/images/renommee.png" alt="renommee" title="Renommée" />
+                    <img src="/images/tmpl/garde_seul.png" alt="truitesse" title="Truitesse" />
+                </p>
+            {% else %}
+                <p>
+                    Vos bâtiments génèrent :
+                    {% if eau  != 0 %}
+                        <span class="color_eau">{{ eau }}</span> <img src="/images/eau.png" alt="eau" title="Eau" />
+                    {% endif %}
+                    {% if credit != 0 %}
+                        <span class="color_credit">{{ credit }}</span> <img src="/images/credit.png" alt="Crédit" title="Crédit" />
+                    {% endif %}
+                    {% if renommee != 0 %}
+                        <span class="color_renommee">{{ renommee }}</span> <img src="/images/renommee.png" alt="renommee" title="Renommée" />
+                    {% endif %}
+                    {% if troupe != 0 %}
+                        <span class="color_troupe">{{ troupe }}</span> <img src="/images/tmpl/garde_seul.png" alt="truitesse" title="Truitesse" />
+                    {% endif %}
+                 PAR HEURE</p>
+            {% endif %}
+</div><br/>
+
+
+            {% if nbEnnemis == 0 %}
+            {% set alt = "Vous faites véritablement règner la Paix de LETO. Toute rébellion est écrasée." %}
+            {% endif %}
+
+            {% if nbEnnemis == 1 %}
+            {% set alt = "La puissance des truitesses est crainte et respectée, à juste titre. La Paix de Leto n'est pas menacé." %}
+            {% endif %}
+
+            {% if nbEnnemis == 2 %}
+            {% set alt = "Il y'a des soulèvements grandissants, gardez le contrôle de la situation." %}
+            {% endif %}
+
+            {% if nbEnnemis == 3 %}
+            {% set alt = "La rébellion est proche et l'on entends du palais les cris des révoltés. Envoyez les truitesses !" %}
+            {% endif %}
+
+            {% if nbEnnemis == 4 %}
+            {% set alt = "Les villes se révoltent ! les truitesses sont surmenées ! La guerre civile est sur toute la planète !" %}
+            {% endif %}
+
+            {% if nbEnnemis == 5 %}
+            {% set alt = "Le palais est bientôt pris d'assaut par le peule qui scande 'Mort au ver' ! Vous risquez à tout moment une mort atroce !" %}
+            {% endif %}
+
+            {% if nbEnnemis == 6 or nbEnnemis > 6 %}
+            {% set alt = "Votre nom est maintenant haï du peuple, et seul l'exil semble pouvoir vous sauver. Le palais ne sera bientôt plus qu'un tas de ruine." %}
+            {% set nbEnnemis = 6 %}
+            {% endif %}
+            {% if nbEnnemis != -1 %}
+                <div alt="{{ alt }}" title="{{ alt }}" class=" popularite popu{{ nbEnnemis }}" > </div>
+            {% endif %}
+<br/>
+        <div id='forceTab'>
+            <div>RAPPORT DE FORCE</div>
+            <div>Vous possédez {{ nbPlanete }} planètes. Gain : {{ epiceJour }} <img src="/images/epice.png" alt="epice" title="Epice" /> par jour</div>
+            <div
+            {% if encoursAttaque != 0 %} class="encoursAttaque"{% endif %}>Vaisseaux d'attaque disponibles :
+                {{ app.user.vaisseau }} <img class="ship" title="Vaisseau" alt="Vaisseau" src="/images/vaisseau/ship.png" /></div>
+        <div{% if encoursExploration != 0 %} class="encoursAttaque"{% endif %}>Vaisseaux d'exploration disponibles :
+            {{ app.user.exploration - encoursExploration }} <img src="/images/vaisseau/explorateur.png" /> </div>
+
+</div>
+
+<div class='retour_journal' style='z-index:1000'></div>
+</div>
+
+</div>

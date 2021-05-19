@@ -1,0 +1,48 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+        var arret = 0;
+
+        $("#contact_village3").dialogue(
+            'contactTextVillage3',
+            'contact_village3',
+            24,
+            '',
+            [200, 400, 600, 800, 800],
+            [0, 0, -68, 0, -135, 0, -68, 0],
+            [200, 400, 600, 800, 800],
+            [0, -182, -68, -182, -135, -182, -68, -182]
+        );
+
+    });
+
+    var heureActu=$('.progBarText').html();
+
+    if($("#contact_village3").length){
+        $("#contact_village3").muetFonction([200, 400, 600, 800, 800], [0, 0, -68, 0, -135, 0, -68, 0]);
+      //  if(heureActu!="20h00")
+        //    $("#contact").remove();
+    }
+
+    $("#mesTexto").html('<img src="/images/plan/village3_plan.png" />');
+    $("#plan").val('village3_plan');
+
+</script>
+</head>
+
+<div id="{{ salle }}">
+    <div id="perso"></div><p>&nbsp;</p>
+    <div title="Village 2" alt="village2" id='retour_village3' style='z-index:1000'></div>
+    <div title="Geole de Onn" class="vers_prison_village" id="vers_prison_village" alt="prison_village" style='z-index:1000'></div>
+
+    <div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_village3" id="{{ key }}_village3"></div>
+    {% endfor %}
+    <div title="Village 4" alt="village4" id='vers_village4' class='vers_village4' style='z-index:1000'></div>
+</div>
+
+

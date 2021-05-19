@@ -1,0 +1,42 @@
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+
+    });
+
+    var heureActu=$('.progBarText').html();
+    if(heureActu=="12h30" || heureActu=="16h00" || heureActu=="18h00" ){
+        $("#porte_3").removeClass().addClass('porte_9_1');
+        $("#porte_3").attr('title', 'Magasin');
+    }
+
+    $("#mesTexto").html('<img src="/images/plan/couloir2_plan.png" />');
+    $("#plan").val('couloir_plan');
+
+</script>
+</head>
+
+
+<div id="{{ salle }}">
+    <div id="perso"></div><p>&nbsp;</p>
+    <div title="Salle commune" id='retour_couloir2' alt="commune" style='z-index:1000'></div>
+    {% for value in porteDansSalle %}
+        {% if value.poru_etat == 1 %}
+            {% set title = value.por_title_ouvert %}
+        {% else %}
+            {% set title = value.por_title_ferme %}
+        {% endif %}
+
+        <div title="{{ title }}" alt="{{ value.por_direction }}" id="porte_{{ value.por_id }}" class="porte_{{ value.por_id_type }}_{{ value.poru_etat }}"></div>
+    {% endfor %}
+
+    <div title="Salle du trône" id="vers_trone" class='vers_trone' alt="trone">&nbsp;</div>
+<div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}" id="{{ key }}"></div>
+    {% endfor %}
+</div>
+
+

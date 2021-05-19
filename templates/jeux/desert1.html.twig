@@ -1,0 +1,35 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+        var arret = 0;
+    });
+
+    $("#tarhani_desert").dialogue('tarhaniTextDesert1', 'tarhani_desert', 19, '', [],
+        [-140, 0, 0, 0, -140, 0, -280, 0], [],
+        [0, -275, -140, -275, -280, -275, -140, -275]);
+
+    if ($("#tarhani_desert").length)
+        $("#tarhani_desert").muetFonction([], [-140, 0, 0, 0, -140, 0, -280, 0]);
+
+</script>
+</head>
+
+
+
+<div id="{{ salle }}" style='background:url("../images/desert/desert{{nb}}.jpg") no-repeat scroll 0 0 rgba(0, 0, 0, 0)' class='<?php echo $stylePiece;?>'>
+    <div id="perso"></div><p>&nbsp;</p>
+    <div alt="desert1" id='vers_desert1' class='vers_desert1' style='z-index:1000'></div>
+    <div alt="desert2" id='vers_desert2' class='vers_desert2' style='z-index:1000'></div>
+    <div alt="desert3" id='vers_desert3' class='vers_desert3' style='z-index:1000'></div>
+
+    <div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_desert1" id="{{ key }}_desert"></div>
+    {% endfor %}
+
+</div>
+
+

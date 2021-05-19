@@ -1,0 +1,46 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+        var arret = 0;
+
+
+
+
+
+        $("#sayyaoto_bibliotheque").dialogue('sayyaotoTextBibliotheque', 'sayyaoto_bibliotheque', 3);
+        $("#memoire").dialogue('sayyaotoTextBibliotheque', 'memoire sayyaoto_bibliotheque', 3, 96);
+        $("#soeur_1_bibliotheque").dialogue('soeur_1Text soeur_1Text_biblio', 'soeur_1_bibliotheque', 15);
+
+    });
+
+    var heureActu=$('.progBarText').html();
+    if(heureActu=="12h30" || heureActu=="16h00" || heureActu=="10h00" || heureActu=="12h00" )
+        $("#soeur_1_bibliotheque").remove();
+    if($("#sayyaoto_bibliotheque").length)
+        $("#sayyaoto_bibliotheque").muetFonction();
+    if($("#soeur_1_bibliotheque").length)
+        $("#soeur_1_bibliotheque").muetFonction();
+
+    $("#mesTexto").html('<img src="/images/plan/bibliotheque_plan.png" />');
+    $("#plan").val('bibliotheque_plan');
+</script>
+</head>
+
+<div id="{{ salle }}" >
+    <div id="perso"></div><p>&nbsp;</p>
+    <div id="inscription_bib" onclick="setInscription()"></div>
+    <div id="livre_cyrano" onclick="setLivre()"></div>
+    <div id='retour_bibliotheque' alt="commune" title="Salle commune" style='z-index:1000'></div>
+
+    <div id="texto"></div>
+    {% if vol == '' %}<img id="memoire" class="memoire" src="/images/memoire.jpg" />{% endif %}
+
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_bibliotheque" id="{{ key }}_bibliotheque"></div>
+    {% endfor %}
+</div>
+
+

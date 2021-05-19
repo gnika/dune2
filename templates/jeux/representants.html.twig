@@ -1,0 +1,40 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+
+        var arret = 0;
+
+        $("#soeur_1_representants").dialogue('soeur_1Text', 'soeur_1_representants', 15);
+        if ($("#soeur_1_representants").length)
+            $("#soeur_1_representants").muetFonction();
+
+        $("#mesTexto").html('<img src="/images/plan/intendant_plan.png" />');
+        $("#plan").val('intendant_plan');
+    })
+
+</script>
+</head>
+
+<div id="{{salle}}" >
+    <div id="perso"></div><p>&nbsp;</p>
+    <div title="Entrée" alt="entree" id='retour_representants' style='z-index:1000'></div>
+
+    {% for value in porteDansSalle %}
+        {% if value.poru_etat == 1 %}
+            {% set title = value.por_title_ouvert %}
+        {% else %}
+            {% set title = value.por_title_ferme %}
+        {% endif %}
+
+        <div title="{{ title }}" alt="{{ value.por_direction }}" id="porte_{{ value.por_id }}" class="porte_{{ value.por_id_type }}_{{ value.poru_etat }}"></div>
+    {% endfor %}
+<div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_representants" id="{{ key }}_representants"></div>
+    {% endfor %}
+</div>
+
+

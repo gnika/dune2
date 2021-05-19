@@ -1,0 +1,116 @@
+{% extends 'jeu.html.twig' %}
+
+
+{% block content %}
+
+    <div id='inThePlace'>
+        <div style="background-color:#5b45a9;" id='salle_trone' class="connect">
+            <div id="fb-root"></div>
+            <span class='flags'><a href="/fr/jouer"><img title='français' alt='français' src="/images/flagf.png" /></a> <a href="/en/jouer"><img title='english' alt='english' src="/images/flage.png" /></a></span>
+            <article>
+
+
+
+                <div class="buttons_index">
+                    <a href="{{ path('app_contexte') }}"><img src="/images/tmpl/bases.png" onmouseover="this.src='/images/tmpl/bases_hover.png'" onmouseout="this.src='/images/tmpl/bases.png'" /></a>
+
+                    <a href="{{ path('app_tuto') }}"><img src="/images/tmpl/tuto.png" onmouseover="this.src='/images/tmpl/tuto_hover.png'" onmouseout="this.src='/images/tmpl/tuto.png'" /></a>
+
+                    <a href="{{ path('app_univers') }}"><img src="/images/tmpl/savoir.png" onmouseover="this.src='/images/tmpl/savoir_hover.png'" onmouseout="this.src='/images/tmpl/savoir.png'" /></a>
+                </div>
+                <div style="width: 100%;">
+                    <br/><br/><br/>
+                    <h2>PENSEZ A ACTIVER LE SON</h2><br/><br/><br/>
+                    <ul>
+                        <li>- Pour vous déplacer entre les pièces, cliquez sur le tapis situé sur le diamant : <img onmouseover="this.src='/images/tapis-hover.png'" onmouseout="this.src='/images/tapis.png'" width="150px" src="/images/tapis.png"/></li>
+                        <li>- Interrogez les personnages en cliquant dessus</li>
+                        <li>- Pour faire défiler les textes, cliquez sur les bulles de dialogues</li>
+                    </ul>
+                    <br/>
+                    <button class="start">Commencer l'aventure</button>
+                </div>
+                <div class='retry'><span class='oneRetry'>Pour recommencer votre partie à partir de 0 </span><button class="tryAgain">cliquez ici</button></div>
+
+                <div class="naylaIndex"></div>
+
+            </article>
+
+        </div>
+
+        <script>
+            if($('.error').length>0)$('.warning').hide();
+            if($('.error').length>0)$('.warning_index').hide();
+            $(".start, .naylaIndex").click(function() {
+                if($('.start').length>0){
+                    if($('#onTalk').val()==0){
+                        $('#onTalk').val(1);
+
+                        if( $('.oneRetry').length == 0)
+                            var urlReturn = 'trone';
+                        else
+                            var urlReturn = '{{ nomSalle }}';
+                        var request = $.ajax({
+                            url: '/'+urlReturn,
+                            type: "GET"
+                        });
+                        request.done(function(msg) {
+                            $("#inThePlace").fadeOut(1000);
+                            setTimeout(function(){
+                                $("#inThePlace").hide();
+                                $("#inThePlace").html(msg);
+                                $("#inThePlace").fadeIn(1000);
+                            }, 1000);
+
+                        });
+                    }
+                }
+
+
+            });
+            $(".tryAgain").click(function() {
+                if(window.confirm("Voulez vous vraiment remettre les paramètres de votre compte à 0 et recommencer une partie ?")){
+                    if($('#onTalk').val()==0){
+                        $('#onTalk').val(1);
+                        var request = $.ajax({
+                            url: '/tryagain',
+                            type: "GET"
+                        });
+                        request.done(function(msg) {
+                            $('#onTalk').val(0);
+                            $(".retry").fadeOut(1000);
+                            setTimeout(function(){
+                                $(".retry").hide();
+                                $(".retry").html('Vous avez remis à 0 votre compte. Recommencez une nouvelle partie !');
+                                $(".retry").fadeIn(1000);
+                            }, 1000);
+                            
+
+                        });
+                    }
+                }
+
+
+            });
+            jQuery.fn.arretTalk = function() {
+                $(this).oneTime(1200,function() {
+                    $(this).css({backgroundPosition:'0px 0px'});
+                }).oneTime(300,function() {
+                    $(this).css({backgroundPosition:'-82px 0px'});
+                }).oneTime(600,function() {
+                    $(this).css({backgroundPosition:'-164px 0px'});
+                }).oneTime(900,function() {
+                    $(this).css({backgroundPosition:'-82px 0px'});
+                });
+            };
+
+            jQuery.fn.mouvArretTalk = function(){
+                $(this).arretTalk();
+                $(this).everyTime(1200,function(){
+                    $(this).arretTalk();
+                });
+            }
+
+            $(".naylaIndex").mouvArretTalk();
+        </script>
+    </div>
+{% endblock %}

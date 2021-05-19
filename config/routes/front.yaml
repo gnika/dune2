@@ -1,0 +1,84 @@
+
+security_logout:
+  path:       /logout/
+  controller: App\Controller\SecurityController::logout
+
+
+app_tuto:
+  path:       /tuto
+  controller: App\Controller\IndexController::tuto
+
+app_epice:
+  path:       /epice
+  controller: App\Controller\IndexController::epice
+
+app_gesserit:
+  path:       /gesserit
+  controller: App\Controller\IndexController::gesserit
+
+app_paul:
+  path:       /paul
+  controller: App\Controller\IndexController::paul
+
+app_ix:
+  path:       /ix
+  controller: App\Controller\IndexController::ix
+
+app_tleilax:
+  path:       /tleilax
+  controller: App\Controller\IndexController::tleilax
+
+app_guilde:
+  path:       /guilde
+  controller: App\Controller\IndexController::guilde
+
+app_aidequetes:
+  path:       /aidequetes
+  controller: App\Controller\IndexController::aidequetes
+
+app_contexte:
+  path:       /contexte
+  controller: App\Controller\IndexController::contexte
+
+app_remerciements:
+  path:       /remerciements
+  controller: App\Controller\IndexController::remerciements
+
+app_univers:
+  path:       /univers
+  controller: App\Controller\IndexController::univers
+
+app_policy:
+  path:       /policy
+  controller: App\Controller\IndexController::policy
+
+app_resume:
+  path:       /resume
+  controller: App\Controller\IndexController::resume
+
+app_personnages:
+  path:       /personnages
+  controller: App\Controller\IndexController::personnages
+app_aide1:
+  path:       /aide1
+  controller: App\Controller\IndexController::aide1
+app_aide2:
+  path:       /aide2
+  controller: App\Controller\IndexController::aide2
+app_aide3:
+  path:       /aide3
+  controller: App\Controller\IndexController::aide3
+app_aide4:
+  path:       /aide4
+  controller: App\Controller\IndexController::aide4
+app_aide5:
+  path:       /aide5
+  controller: App\Controller\IndexController::aide5
+
+app_conquete:
+  path:       /conquete
+  controller: App\Controller\IndexController::conquete
+
+app_jouer:
+  path:       /jouer
+  controller: App\Controller\JeuxController::index

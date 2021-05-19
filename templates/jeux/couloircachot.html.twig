@@ -1,0 +1,122 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+
+        jQuery.fn.arretGch = function() {
+            $(this).oneTime(300,function() {
+                $(this).attr('src', '/images/couloir_cachot/rat_02.png');
+                $(this).css({left:'371px'});
+            })
+                .oneTime(600,function() {
+                    $(this).attr('src', '/images/couloir_cachot/rat_03.png');
+                    $(this).css({left:'368px'});
+                })
+                .oneTime(900,function() {
+                    $(this).attr('src', '/images/couloir_cachot/rat_04.png');
+                    $(this).css({left:'371px'});
+                })
+                .oneTime(1200,function() {
+                    $(this).attr('src', '/images/couloir_cachot/rat_05.png');
+                    $(this).css({left:'371px'});
+                })
+                .oneTime(1500,function() {
+                    $(this).attr('src', '/images/couloir_cachot/rat_01.png');
+                    $(this).css({left:'371px'});
+                });
+        };
+
+        jQuery.fn.mouvArretGch = function(){
+            $(this).arretGch();
+            $(this).everyTime(1500,function(){
+                $(this).arretGch();
+            });
+        }
+
+        jQuery.fn.stopMouve = function(){
+            $(this).stop(true).stopTime();
+        }
+
+
+        var arret = 0;
+
+        if($("#rat").length)
+            $("#rat").mouvArretGch();
+
+
+        $("#mesTexto").html('<img src="/images/plan/couloir_cachot_plan.png" />');
+        $("#plan").val('couloir_cachot');
+
+
+
+        $(function() {
+            $(document).on("click",".porteFonddisplay",function(e){
+                if($('#onTalk').val()==0){
+                    $('#onTalk').val(1);
+                    var  dstination='bureaucachot';
+                    var request = $.ajax({
+                        url: '/'+dstination,
+                        type: "GET"
+                    });
+                    request.done(function(msg) {
+                        $("#inThePlace").fadeOut(1000);
+                        setTimeout(function(){
+                            $("#inThePlace").hide();
+                            $("#inThePlace").html(msg);
+                            $("#inThePlace").fadeIn(1000);
+                        }, 1000);
+
+                    });
+                }
+            })
+        });
+
+
+
+    })
+
+
+</script>
+</head>
+
+
+{% if return == 0 %}
+    {% set id = salle %}
+    {% set porte_vert = '' %}
+    {% set title = 'fermé' %}
+{% else %}
+    {% set id = salle~'ouvert' %}
+    {% set porte_vert = 'display' %}
+    {% set title = 'Bureau' %}
+{% endif %}
+
+<div id="{{ id }}" >
+    <div id='retour_commune' alt="commune" title="Salle commune" style='z-index:1000'></div>
+    <?php
+
+	{% for value in porteDansSalle %}
+        {% if value.poru_etat == 1 %}
+            {% set title = value.por_title_ouvert %}
+        {% else %}
+            {% set title = value.por_title_ferme %}
+        {% endif %}
+
+        <div title="{{ title }}" alt="{{ value.por_direction }}" id="porte_{{ value.por_id }}" class="porte_{{ value.por_id_type }}_{{ value.poru_etat }}"></div>
+{% endfor %}
+    <div id="texto"></div>
+{% for key, value in persoDansSalle %}
+    <div class="{{ key }}_couloir2" id="{{ key }}"></div>
+{% endfor %}
+{% if rat == 1 %}
+    <div id='rat_image'>
+        <img src="/images/couloir_cachot/rat_01.png" id='rat'/>
+    </div>
+{% endif %}
+{% if ratMort == 1 %}
+		<img id="clef_cachot" onclick="takeClef()" src="/images/objet/clef.png" />
+{% endif %}
+<div title="{{ title }}" class="porteFond{{ porte_vert }}"></div>';
+
+</div>

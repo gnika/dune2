@@ -1,0 +1,22 @@
+<div id='sortie_objet'>RETOUR</div>
+
+{% for myObject in myObjects %}
+    <img style="cursor:pointer" alt="{{myObject.obj_nom}}" id="obj_{{ myObject.obj_id }}" title="{{myObject.obj_nom}}" src="/images/objet/{{myObject.obj_image}}" onclick="{{myObject.obj_dbl}}" />
+{% endfor %}
+
+<script>
+    $("#sortie_objet").click(function() {
+        if ($('#buttonRessources, #infojoueur, #information, #buttonObjet, #mesTexto, .foot').css('display') != 'none'){
+            $('#sortie_objet').css({'display': 'block'});
+            $('#buttonRessources, #infojoueur, #information, #buttonObjet, #mesTexto, .foot').css({'display': 'none'});
+        }
+        else{
+            $('#sortie_objet').css({'display': 'none'});
+            setTimeout(function(){
+                $('#buttonRessources, #infojoueur, #information, #buttonObjet, #mesTexto, .foot').css({'display': 'block'})
+            }, 500);
+
+        }
+        $( "#mesObjets" ).toggle( "drop" );
+    });
+</script>

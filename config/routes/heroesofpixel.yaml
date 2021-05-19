@@ -1,0 +1,9 @@
+
+
+getsave:
+  path: /getsave
+  controller: App\Controller\HeroesofpixelController::getsave
+
+payeheroes:
+  path: /payeheroes
+  controller: App\Controller\HeroesofpixelController::payeheroes

@@ -1,0 +1,168 @@
+bar:
+  path: /bar
+  controller: App\Controller\JeuxController::bar
+
+barfond:
+  path: /barfond
+  controller: App\Controller\JeuxController::barfond
+
+trone:
+  path: /trone
+  controller: App\Controller\JeuxController::trone
+
+tableaubord:
+  path: /tableaubord
+  controller: App\Controller\JeuxController::tableaubord
+
+couloir2:
+  path: /couloir2
+  controller: App\Controller\JeuxController::couloir2
+
+couloir3:
+  path: /couloir3
+  controller: App\Controller\JeuxController::couloir3
+
+couloir4:
+  path: /couloir4
+  controller: App\Controller\JeuxController::couloir4
+
+couloir:
+  path: /couloir
+  controller: App\Controller\JeuxController::couloir
+
+hangar:
+  path: /hangar
+  controller: App\Controller\JeuxController::hangar
+
+diplomate:
+  path: /diplomate
+  controller: App\Controller\JeuxController::diplomate
+
+carte:
+  path: /carte
+  controller: App\Controller\JeuxController::carte
+
+
+cartezoom1data:
+  path: /cartezoom1data
+  controller: App\Controller\JeuxController::cartezoom1data
+
+vaisseaux:
+  path: /vaisseaux
+  controller: App\Controller\JeuxController::vaisseaux
+
+magasinpalais:
+  path: /magasinpalais
+  controller: App\Controller\JeuxController::magasinpalais
+
+commune:
+  path: /commune
+  controller: App\Controller\JeuxController::commune
+
+bibliotheque:
+  path: /bibliotheque
+  controller: App\Controller\JeuxController::bibliotheque
+
+entree:
+  path: /entree
+  controller: App\Controller\JeuxController::entree
+
+representants:
+  path: /representants
+  controller: App\Controller\JeuxController::representants
+
+chambre1:
+  path: /chambre1
+  controller: App\Controller\JeuxController::chambre1
+
+chambre2:
+  path: /chambre2
+  controller: App\Controller\JeuxController::chambre2
+
+chambre3:
+  path: /chambre3
+  controller: App\Controller\JeuxController::chambre3
+
+chambre4:
+  path: /chambre4
+  controller: App\Controller\JeuxController::chambre4
+
+openindice:
+  path: /openindice
+  controller: App\Controller\JeuxController::openindice
+
+documents:
+  path: /documents
+  controller: App\Controller\JeuxController::documents
+
+couloircachot:
+  path: /couloircachot
+  controller: App\Controller\JeuxController::couloircachot
+
+bureaucachot:
+  path: /bureaucachot
+  controller: App\Controller\JeuxController::bureaucachot
+
+cellule:
+  path: /cellule
+  controller: App\Controller\JeuxController::cellule
+
+marches:
+  path: /marches
+  controller: App\Controller\JeuxController::marches
+
+village1:
+  path: /village1
+  controller: App\Controller\JeuxController::village1
+
+village2:
+  path: /village2
+  controller: App\Controller\JeuxController::village2
+
+village3:
+  path: /village3
+  controller: App\Controller\JeuxController::village3
+
+village4:
+  path: /village4
+  controller: App\Controller\JeuxController::village4
+
+habitat1:
+  path: /habitat1
+  controller: App\Controller\JeuxController::habitat1
+
+desert1:
+  path: /desert1
+  controller: App\Controller\JeuxController::desert1
+
+desert2:
+  path: /desert2
+  controller: App\Controller\JeuxController::desert2
+
+desert3:
+  path: /desert3
+  controller: App\Controller\JeuxController::desert3
+
+siaynoq:
+  path: /siaynoq
+  controller: App\Controller\JeuxController::siaynoq
+
+heroesofpixel:
+  path: /heroespixel
+  controller: App\Controller\JeuxController::heroespixel
+
+arbre:
+  path: /arbre
+  controller: App\Controller\JeuxController::arbre
+
+chambre_politique:
+  path: /chambre_politique
+  controller: App\Controller\JeuxController::chambrepolitique
+
+prison_village:
+  path: /prison_village
+  controller: App\Controller\JeuxController::prisonvillage
+
+perdu:
+  path: /perdu
+  controller: App\Controller\JeuxController::perdu

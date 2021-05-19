@@ -1,0 +1,48 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+        var arret = 0;
+
+        $("#karaguhl").dialogue('karaguhlTexthabitat1', 'karaguhl', 22, '', [],
+            [-139, 0, -280, 0, -139, 0, 0, 0],
+            [],
+            [0, -270, -139, -270, -280, -270, -139, -270],
+        );
+
+        $("#fremen2").dialogue('fremen2Texthabitat1', 'fremen2', 26, '', [],
+            [0, 0, -83, 0, -167, 0, -83, 0],
+            [],
+            [0, -159, -83, -159, -167, -159, -83, -159],
+        );
+    });
+
+    if($("#karaguhl").length)
+        $("#karaguhl").muetFonction([], [-139, 0, -280, 0, -139, 0, 0, 0]);
+
+    if($("#fremen2").length)
+        $("#fremen2").muetFonction([], [0, 0, -83, 0, -167, 0, -83, 0]);
+
+    $("#plan").val('habitat1');
+    $("#mesTexto").html('<img src="/images/plan/habitat1.png" />');
+
+
+
+</script>
+</head>
+
+<div id="{{ salle }}" >
+    <div id="perso"></div><p>&nbsp;</p>
+    <div alt="village1" id='retour_habitat1' style='z-index:1000'></div>
+
+    <div id="texto"></div>
+
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_village1" id="{{ key }}"></div>
+    {% endfor %}
+
+</div>
+
+

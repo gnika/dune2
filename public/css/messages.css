@@ -1,0 +1,175 @@
+
+
+.msg {
+  background: #000;
+  font-family: Helvetica, Arial, sans-serif;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 1034px;
+  z-index: 99999;
+  border-radius: 15px 15px 0 0;
+  opacity: 0.7;
+}
+
+.checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  color: cyan;
+  --bg: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 1em;
+}
+.checkbox:checked {
+  --bg: unset;
+}
+/*
+.checkbox:before, .checkbox:after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+}
+.checkbox:before {
+  padding: 0.5em;
+  background: var(--bg, cyan);
+  border: 1px solid;
+}
+.checkbox:after {
+  content: var(--message);
+  color: #fff;
+  margin-left: 0.5em;
+}
+
+ */
+
+.message_container {
+  filter: drop-shadow(0 0 8px cyan);
+}
+.message_container .message {
+  background: #000;
+  --aug-border: 2px;
+  --aug-border-bg: cyan;
+  width: calc(100% - 20px);
+  max-width: 640px;
+  margin: 0 auto;
+  overflow: hidden;
+  transition: all 0.5s;
+}
+.message_container .message .title {
+	color: black;
+  display: inline-block;
+  font-family: "pixelFonte", Helvetica, sans-serif;
+  padding: 0.5em 2em;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+  --aug-inset: .25em;
+  --aug-inset-bg: #ff0;
+  --aug-br: .75em;
+}
+.message_container .message p {
+  font-family: "pixelFonte", Helvetica, sans-serif;
+  color: #fff;
+  padding: 1em;
+  margin: 0;
+  line-height: 1.4em;
+  text-align: justify;
+  max-height: 10em;
+  display: flex;
+  width: 600px;
+  height: 60px;
+}
+.message_container .message p.text{
+  text-align: center;
+  display: block;
+}
+
+.checkbox ~ .message_container > .message {
+  max-height: 0;
+  opacity: 0;
+}
+.checkbox:checked ~ .message_container > .message {
+  max-height: 300px;
+  opacity: 1;
+}
+.recompense{
+  flex: auto;
+  margin: 0 15px;
+  text-align: center;
+}
+p .recompense.plus:before{
+  content:url("/images/plus.png") ;
+  position:relative;
+  left:-3px;
+  top:10px;
+}
+p .recompense.moins:before{
+  content:url("/images/minus.png") ;
+  position:relative;
+  left:-3px;
+  top:10px;
+}
+p .recompense.epice:after{
+  content:url("/images/epice.png") ;
+  position:relative;
+  left:+3px;
+}
+p .recompense.credit:after{
+  content:url("/images/credit.png") ;
+  position:relative;
+  left:+3px;
+}
+p .recompense.troupe:after{
+  content:url("/images/tmpl/garde_seul.png") ;
+  position:relative;
+  left:+3px;
+}
+p .recompense.renommee:after{
+  content:url("/images/renommee.png") ;
+  position:relative;
+  left:+3px;
+}
+p .recompense.eau:after{
+  content:url("/images/eau.png") ;
+  position:relative;
+  left:+3px;
+}
+p .recompense.eau:after{
+  content:url("/images/eau.png") ;
+  position:relative;
+  left:+3px;
+}
+p .recompense.influence:after{
+  content:url("/images/skill/influence_mini.png") ;
+  position:relative;
+  left:+3px;
+}
+p .recompense.serviteur:after{
+  content:url("/images/skill/serviteur_mini.png") ;
+  position:relative;
+  left:+3px;
+}
+p .recompense.escorte:after{
+  content:url("/images/skill/escorte_mini.png") ;
+  position:relative;
+  left:+3px;
+}
+p .recompense.vaisseau:after{
+  content:url("/images/vaisseau/ship_mini.png") ;
+  position:relative;
+  left:+3px;
+}
+/*
+p .recompense .quota{
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+*/

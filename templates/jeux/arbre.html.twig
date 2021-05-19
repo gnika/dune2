@@ -1,0 +1,38 @@
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+
+    });
+
+    var arret = 0;
+    if($("#chef_fremen").length)
+        $("#chef_fremen").muetFonction([], [-140, 0, 0, 0, -140, 0, -280, 0]);
+
+
+    $("#chef_fremen").dialogue('chef_fremenText', 'chef_fremen', 29, '', [],
+        [-140, 0, 0, 0, -140, 0, -280, 0],
+        [],
+        [0, -270, -140, -270, -280, -270, -140, -270],
+    );
+    $("#plan").val('arbre');
+    $("#mesTexto").html('<img src="/images/plan/arbre.png" />');
+</script>
+</head>
+
+
+<div id="{{ salle }}">
+    <div id="perso"></div><p>&nbsp;</p>
+    <div id='retour_marches' alt="heroespixel" title="desert" style='z-index:1000'></div>
+
+    <div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_desert" id="{{ key }}"></div>
+    {% endfor %}
+    {% if malkiKilled == 1 %}
+        <img src="/images/arbre/lance.png" title="Restes de Malki" id="lance" alt="Restes de Malki" />
+    {% endif %}
+</div>
+
+

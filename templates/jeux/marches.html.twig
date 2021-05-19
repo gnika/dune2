@@ -1,0 +1,77 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+
+        ///
+        var arret = 0;
+
+
+        $("#contact").dialogue(
+            'contactTextMarches',
+            'contact',
+            24,
+            '',
+            [200, 400, 600, 800, 800],
+            [0, 0, -68, 0, -135, 0, -68, 0],
+            [200, 400, 600, 800, 800],
+            [0, -182, -68, -182, -135, -182, -68, -182]
+        );
+        $("#contact_politique").dialogue(
+            'contactTextMarches',
+            'contact_politique',
+            24,
+                {{ politologue }},
+            [200, 400, 600, 800, 800],
+            [0, 0, -68, 0, -135, 0, -68, 0],
+            [200, 400, 600, 800, 800],
+            [0, -182, -68, -182, -135, -182, -68, -182]
+        );
+
+
+        $("#politque_marches").dialogue(
+            'contactTextMarches',
+            'politque_marches contact_politique',
+            24,
+                {{ politologue }},
+            [200, 400, 600, 800, 800],
+            [0, 0, -68, 0, -135, 0, -68, 0],
+            [200, 400, 600, 800, 800],
+            [0, -182, -68, -182, -135, -182, -68, -182]);
+
+    });
+
+    if($("#contact").length)
+        $("#contact").muetFonction([200, 400, 600, 800, 800], [0, 0, -68, 0, -135, 0, -68, 0]);
+
+    if($("#contact_politique").length)
+        $("#contact_politique").muetFonction([200, 400, 600, 800, 800], [0, 0, -68, 0, -135, 0, -68, 0]);
+
+    $("#mesTexto").html('<img src="/images/plan/marches_plan.png" />');
+    $("#plan").val('marches_plan');
+
+</script>
+</head>
+
+<div id="{{ salle }}">
+    <div id="perso"></div><p>&nbsp;</p>
+
+    {% if politologue == 0 %}
+        <div id='retour_marches' alt="heroespixel" title="desert" style='z-index:1000'></div>
+    {% else %}
+        <div id='politque_marches' onclick="$(this).hide();" alt="heroespixel" title="desert" style='z-index:1000'></div>
+    {% endif %}
+    <div id='vers_entree' class='vers_entree' alt="entree" title="Entrée du palais" style='z-index:1000'></div>
+    <div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        {% if politologue == 0 %}
+             <div class="{{ key }}_marches" id="{{ key }}"></div>
+        {% else %}
+            <div class="{{ key }}_politique" id="{{ key }}_politique"></div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+

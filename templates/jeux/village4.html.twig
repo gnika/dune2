@@ -1,0 +1,117 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+        var arret = 0;
+
+
+        $("#hwitaka").dialogue('hwitakaTextvillage4', 'hwitaka', 20, '', [],
+            [-139, 0, -280, 0, -139, 0, 0, 0],
+            [],
+            [0, -270, -139, -270, -280, -270, -139, -270],
+        );
+
+        var distille ={{ distille }}
+
+            $(".vers_desert1_village4").click(function () {
+
+                if ($('#onTalk').val() == 0 && distille == 1) {
+                    $('#onTalk').val(1);
+                    var request = $.ajax({
+                        url: '/desert1',
+                        type: "GET"
+                    });
+                    request.done(function (msg) {
+                        $("#inThePlace").fadeOut(1000);
+                        setTimeout(function () {
+                            $("#inThePlace").hide();
+                            $("#inThePlace").html(msg);
+                            $("#inThePlace").fadeIn(1000);
+                        }, 1000);
+
+                    });
+                } else {
+                    $("#desert1_village4").dialogue('hwitakaTextvillage4', 'desert1_village4 hwitaka', 20, 132, [],
+                        [-139, 0, -280, 0, -139, 0, 0, 0],
+                        [],
+                        [0, -270, -139, -270, -280, -270, -139, -270],
+                    );
+                }
+            });
+        $(".vers_desert2_village4").click(function () {
+            if ($('#onTalk').val() == 0 && distille == 1) {
+                $('#onTalk').val(1);
+                var request = $.ajax({
+                    url: '/desert2',
+                    type: "GET"
+                });
+                request.done(function (msg) {
+                    $("#inThePlace").fadeOut(1000);
+                    setTimeout(function () {
+                        $("#inThePlace").hide();
+                        $("#inThePlace").html(msg);
+                        $("#inThePlace").fadeIn(1000);
+                    }, 1000);
+
+                });
+            } else {
+                $("#desert1_village4").dialogue('hwitakaTextvillage4', 'desert2_village4 hwitaka', 20, 132, [],
+                    [-139, 0, -280, 0, -139, 0, 0, 0],
+                    [],
+                    [0, -270, -139, -270, -280, -270, -139, -270],
+                );
+            }
+        });
+        $(".vers_desert3_village4").click(function () {
+            if ($('#onTalk').val() == 0 && distille == 1) {
+                $('#onTalk').val(1);
+                var request = $.ajax({
+                    url: '/desert3',
+                    type: "GET"
+                });
+                request.done(function (msg) {
+                    $("#inThePlace").fadeOut(1000);
+                    setTimeout(function () {
+                        $("#inThePlace").hide();
+                        $("#inThePlace").html(msg);
+                        $("#inThePlace").fadeIn(1000);
+                    }, 1000);
+
+                });
+            } else {
+                $("#desert1_village4").dialogue('hwitakaTextvillage4', 'desert3_village4 hwitaka', 20, 132, [],
+                    [-139, 0, -280, 0, -139, 0, 0, 0],
+                    [],
+                    [0, -270, -139, -270, -280, -270, -139, -270],
+                );
+            }
+        });
+
+    })
+
+    if($("#hwitaka").length)
+        $("#hwitaka").muetFonction([], [-139, 0, -280, 0, -139, 0, 0, 0]);
+
+    $("#mesTexto").html('<img src="/images/plan/avant_desert_plan.png" />');
+    $("#plan").val('avant_desert_plan');
+
+</script>
+</head>
+<div id="{{ salle }}" >
+    <div id="perso"></div><p>&nbsp;</p>
+    <div title="Village 3" alt="village3" id='retour_village4' style='z-index:1000'></div>
+    <div id='desert1_village4' alt="desert1" class='vers_desert1_village4' style='z-index:1000'></div>
+    <div id='desert2_village4' alt="desert2" class='vers_desert2_village4' style='z-index:1000'></div>
+    <div id='desert3_village4' alt="desert3" class='vers_desert3_village4' style='z-index:1000'></div>
+
+
+    <div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_village4" id="{{ key }}"></div>
+    {% endfor %}
+
+</div>
+
+

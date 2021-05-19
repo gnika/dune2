@@ -1,0 +1,29 @@
+<div id='information'>
+    <div id='epice_renommee_credit_eau_user'>
+        <span class="renom">
+            <img src="/images/renommee.png" alt="renommee dune jeu Frank Herbert" title="Renommée">
+            RENOMMEE : <span id='nbRenom'>{{ "%04d"|format(app.user.renommee) }}</span>
+        </span>
+        <span class="epic">
+            <img src="/images/epice.png" alt="epice dune jeu Frank Herbert" title="Epice">
+            EPICE : <span id='nbSpice'>{{ "%05d"|format(app.user.epice) }}</span>
+        </span>
+        <span class="credit">
+            <img style="position: relative;top: 5px;" src="/images/credit.png" alt="credit dune jeu Frank Herbert" title="Crédit">
+            CREDIT : <span id='nbCredit'>{{ "%04d"|format(app.user.credit) }}</span>
+        </span>
+        <span class="eau">
+            <img src="/images/eau.png" alt="eau dune jeu Frank Herbert" title="Eau">
+            EAU : <span id='nbEau'>{{ "%04d"|format(app.user.eau) }}</span>
+        </span>
+        <span class="troupe">
+            <img style="position: relative;right : 31px;" src="/images/tmpl/garde_seul.png" alt="Vos truitesses" title="Vos truitesses">
+            <br/><span id='nbTroupe'>{{app.user.troupe}}</span>
+        </span>
+        <span class="skills">
+            <img title="{{ app.user.serviteur }} serviteurs" class="serviteur" src="/images/skill/serviteur_mini.png" />
+            <img title="{{ app.user.influence }} influences" class="influence" src="/images/skill/influence_mini.png" />
+            <img title="{{ app.user.gardien }} escortes" class="escorte" src="/images/skill/escorte_mini.png" />
+        </span>
+    </div>
+</div>

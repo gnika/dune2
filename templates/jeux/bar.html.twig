@@ -1,0 +1,102 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+        var arret = 0;
+
+        $("#client1").dialogue(
+            'client1Text',
+            'client1',
+            14,
+            '',
+            [2000, 500, 1000, 1500, 2000],
+            [0, 0, -144, 0, -288, 0, -144, 0],
+            [2000, 500, 1000, 1500, 2000],
+            [0, 0, -144, -130, -288, -130, -144, -130]
+        );
+
+
+        $("#client_3").dialogue(
+            'client_3Text',
+            'client_3',
+            27,
+            '',
+            [2000, 500, 1000, 1500, 2000],
+            [0, 0, -67, 0, -133, 0, -67, 0],
+            [500, 1000, 1500, 2500, 5000],
+            [0, -132, -67, -132, -133, -132, -67, -132]
+        );
+
+        $("#barman").dialogue(
+            'barmanText',
+            'barman',
+            13,
+            '',
+            [],
+            [-128, 0, -256, 0, -128, 0, 0, 0],
+            [],
+            [-128, -128, -256, -128, -128, -128, 0, -128]
+        );
+
+        $("#client_2").dialogue(
+            'client_2Text',
+            'client_2',
+            17,
+            '',
+            [500, 1000, 1500, 2500, 5000],
+            [5, 0, -143, 0, -292, 0, -143, 0],
+            [500, 1000, 1500, 2500, 5000],
+            [5, -295, -143, -295, -292, -295, -143, -295]
+        );
+
+
+    });
+
+    $("#barman").muetFonction([], [-128, 0, -256, 0, -128, 0, 0, 0]);
+    $(".enseignes").muetFonction([200, 400, 1000, 1800, 2500], [0, 4, 0, -28, 0, 4, 0, -28]);
+    $(".client5").muetFonction([500, 1000, 1500, 2200, 3000],[0, 0, -74, 0, -144, 0, -74, 0]);
+    $("#client1").muetFonction([2000, 500, 1000, 1500, 2000], [0, 0, -144, 0, -288, 0, -144, 0]);
+    $("#client_3").muetFonction([2000, 500, 1000, 1500, 2000], [0, 0, -67, 0, -133, 0, -67, 0]);
+
+
+    var pendu=0;
+    {% if pendu is defined %}
+
+        pendu = {{ pendu }};
+    {% endif %}
+
+    if(pendu)
+        $("#client_2").hide();
+    else
+        $("#client_2").muetFonction(
+            [500, 1000, 1500, 2500, 5000],
+            [5, 0, -143, 0, -292, 0, -143, 0]
+        );
+
+    $("#mesTexto").html('<img src="/images/plan/bar_plan.png" />');
+    $("#plan").val('bar_plan');
+</script>
+</head>
+
+<div id="{{ salle }}">
+    <div id="perso"></div><p>&nbsp;</p>
+    <div id='retour_bar' alt="commune" title="Salle commune" style='z-index:1000'></div>
+    <div id='vers_fond_bar' alt="barfond" title="Porte dérobée"></div>
+    <div class='bouteilles'></div>
+    <div class='enseignes'></div>
+    <div class='client5'></div>
+    <span class='nappe'></span>
+    {% for value in porteDansSalle %}
+        <div id="porte_{{ porte.por_id }}" class="porte_{{ porte.por_id_type }}_{{ porte.poru_etat }}"></div>
+    {% endfor %}
+
+    <div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_bar" id="{{ key }}"></div>
+    {% endfor %}
+
+</div>
+
+

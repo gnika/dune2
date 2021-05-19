@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'homepage' %}
+
+
+
+{% block body %}
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <section id="main" class="wrapper">
+            <div class="inner">
+                <h1 class="major">Dune jeu point and click : Situation politique</h1>
+                <span class="image fit"><img src="/images/site/dune_point_and_click_palais_planete.jpg" alt="Dune jeu point and click : Situation politique" /></span>
+                <blockquote>
+                    L'imperiuum vit depuis plus de 3500 ans sous le joug du Tyran LETO II, puissant monarque mi-homme, mi-Ver de sable capable de clairvoyance et devinant l'avenir.<br/>
+                    Tout l'empire connu ne dépend que d'une seule ressource rare et précieuse : <a href="{{ path('app_conquete') }}"><b>l'EPICE</b></a>,
+                    que seul l'Empereur-dieu est capable de générer sur <strong>DUNE</strong> -communément appelé <strong>ARRAKIS</strong><br/>
+                    Celui-ci, pour stabiliser et soumettre tout l'imperiuum, distribue parcimonieusement cette manne rarissime aux 4 grandes maisons restantes
+                </blockquote>
+
+                <h2>4 grandes maisons</h2>
+
+                <ul>
+                    <li><a href="{{ path('app_guilde') }}">La GUILDE SPATIALE</a></li>
+                    <li><a href="{{ path('app_gesserit') }}">Le BENE GESSERIT</a></li>
+                    <li><a href="{{ path('app_ix') }}">IX</a></li>
+                    <li><a href="{{ path('app_tleilax') }}">Le BENE TLEILAX</a></li>
+                </ul>
+                <p>Vous êtes en charge de distribuer aux 4 grandes maisons <a href="{{ path('app_epice') }}">l'épice</a>
+                    tant convoitée par tout le Landstraad. Cette distribution d'<a href="{{ path('app_epice') }}">épice</a>
+                    est plus connue sous le nom de "Cérémonie du Partage" qui a lieu tous les 5 jours.<br/>
+                    OU QUE VOUS SOYEZ, au bout de 5 jours, vous allez être redirigé vers la salle du trône pour initier la cérémonie du partage</p>
+
+                <p><a  href="{{ path('app_tuto') }}">Tutoriel en images</a></p>
+                <p><a  href="{{ path('app_personnages') }}">Les différents personnages du palais</a></p>
+                <h3>1 - Cérémonie du partage</h3>
+                <p>
+                    En tant que plus proche serviteur de l'Empereur-dieu LETO II, vous êtes responsable de la distribution d'<a  href="{{ path('app_epice') }}">épice</a>
+                    accordée aux différentes maisons.
+                    Vous pouvez (devez) paramètrer la quantité d'<a href="{{ path('app_epice') }}">épice</a>
+                    que vous allouez aux différentes maisons.</p>
+                <p> Plus vous allouez d'<a href="{{ path('app_epice') }}">épice</a>,
+                    plus vous obtenez de la <b>RENOMMEE</b>. Si une des maisons ne reçoit pas d'<a href="{{ path('app_epice') }}">épice</a>
+                    par manque de ressource lors d'une cérémonie, votre niveau de corruption augmente.
+                    La corruption diminue le gain de Renommée par Cérémonie du Partage.
+                </p>
+
+                <h3>2 - Comment gagner de l'<a href="{{ path('app_epice') }}">épice</a> ?</h3>
+                <p>Pour gagner de l'<a href="{{ path('app_epice') }}">épice</a>, deux solutions :
+                <ul>
+                    <li>
+                        la première, la plus simple, <b><a href="{{ path('app_conquete') }}">CONQUERIR DES PLANETES</a></b>
+                        En conquérant des planètes, pacifiquement ou en guerroyant, vous obtiendrez un important gain d'<a href="{{ path('app_epice') }}">épice</a> à la capture
+                        de la planète et un revenu plus modeste tous les jours
+                    </li>
+                    <li>
+                        La deuxième en réalisant des <b>QUETES</b> que vous donnent (principalement) les représentants des 4 maisons majeures du Landstraad.
+                        Plus vous réalisez des Quêtes, plus vous aurez d'<a href="{{ path('app_epice') }}">épice</a>.
+                    </li>
+                </ul>
+                </p>
+                <p class='warning'>Vous DEVEZ le plus rapidement possible commencer à conquérir des planètes</p>
+
+                <h3>3 - Que me rapporte les Quêtes ? </h3>
+                <p>Les Quêtes que vous accomplirez vous rapporteront différentes sortes de récompense : des Objets, de <a href="{{ path('app_epice') }}">l'EPICE</a>, des Serviteurs, de l'Influence et des Escortes</p>
+                <p><b>Les OBJETS</b> servent à résoudre des quêtes, ou a vous apporter des bonus au cours de votre aventure. Pour en utiliser un, cliquer dessus</p>
+                <p><b>Les SERVITEURS</b>, une fois assignés à une maison, servent à augmenter la jauge d'humeur de cette maison. Plus une maison est heureuse, plus les représentants de ces maisons vous parleront</p>
+                <p><b>Les POINTS D'INFLUENCE</b>, une fois assignés à une maison, permettent de diminuer la quantité d'<a href="{{ path('app_epice') }}">épice</a>
+                    donnée à chaque cérémonie du partage pour la maison concernée</p>
+                <p><b>Les ESCORTES</b>, une fois assignés à une maison, protègent la maison concernée des <b>ATTENTATS</b></p>
+
+                <p class='warning'>Vous devez assigner les Serviteurs, l'Influence et les Escortes aux différentes maisons</p>
+                <p>Il est en effet rare de recevoir des Serviteurs, de l'Influence et des Escorte déjà assignés à une maison particulière. <br/>
+                    Vous devez donc les assigner vous même dans votre tableau de bord, au même endroit ou vous gérez la quantité d'<a href="{{ path('app_epice') }}">épice</a>
+                    distribuée par maison</p>
+
+                <h3>4 - Les Attentats</h3>
+                <p>CONTEXTE TENDU</p>
+                <p>Les différentes maisons présentes dans le palais n'entretiennent pas de bon rapport : elles veulent à tout prix rabaisser les autres représentants pour seules briller aux yeux de l'Empereur</p>
+                <p>Aléatoirement, un ou deux Serviteurs <b>DEJA ASSIGNES</b> meurent sous les coups d'un attentat perpétré par une des maisons rivales</p>
+                <p>LES ESCORTES meurent à la place des Serviteurs. Les Serviteurs sont extrèmement important pour s'assurer les bonnes relations d'une maison. ASSIGNEZ des Escortes aux maisons possédant des Serviteurs</p>
+                <br/>
+                <a href="#" class="button primary">Vous voila fin prêt, vous, MONEO, à vous mettre au service de votre Empereur-dieu LETO II !</a>
+
+            </div>
+        </section>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+
+    });
+
+    $("#representant_guilde").dialogue('representant_guildeTextChambre', 'representant_guilde', 8);
+    if ($("#representant_guilde").length)
+        $("#representant_guilde").muetFonction();
+
+
+
+    $("#mesTexto").html('<img src="/images/plan/representant_plan.png" />');
+    $("#plan").val('representant_plan');
+</script>
+</head>
+
+
+<div id="{{salle}}" >
+    <div id="perso"></div><p>&nbsp;</p>
+    <div title="Intendance" alt="representants" id='retour_chambre' style='z-index:1000'></div>
+
+    <div id="texto"></div>
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_chambre4" id="{{ key }}"></div>
+    {% endfor %}
+</div>
+
+

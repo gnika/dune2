@@ -1,0 +1,120 @@
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+
+        $("#vendeur_1").dialogue(
+            'vendeur1Text',
+            'vendeur_1',
+            16,
+            '',
+            [],
+            [5, 0, -196, 0, -394, 0, -196, 0],
+            [],
+            [0, -545, -196, -545, -394, -545, -196, -545]
+        );
+
+
+    });
+
+    if($("#vendeur_1").length)
+        $("#vendeur_1").muetFonction([], [5, 0, -196, 0, -394, 0, -196, 0]);
+
+    function ajaxAchat(nb, idOb) {
+        if($('#noMultiple').val()==0){
+            $('#noMultiple').val(1);
+
+            var request = $.ajax({
+                url: '/achatobjet',
+                type: "GET",
+                data: { nbAchete: nb, idObParam: idOb }
+            });
+            request.done(function(msg) {
+                messagesDisplay();
+                afficheSpice();
+                afficheObject();
+                if(msg=='done')
+                    $('.achat_'+idOb).hide();
+            });
+        }
+        setTimeout(function(){
+            $("#noMultiple").val(0);
+        }, 5000);
+    }
+
+        $(document).on("click", '.itemDesert', function(event) {
+
+            var idOb = $(this).attr('alt');
+
+            var request = $.ajax({
+                url: '/achatheroes',
+                type: "GET",
+                data: { idOb: idOb }
+            });
+            request.done(function(msg) {
+                messagesDisplay();
+                afficheSpice();
+                afficheObject();
+            });
+            setTimeout(function(){
+                $("#noMultiple").val(0);
+            }, 5000);
+    });
+
+    $("#mesTexto").html('<img src="/images/plan/surplus_plan.png" />');
+    $("#plan").val('surplus_plan');
+</script>
+</head>
+
+
+<div id="{{ salle }}" >
+    <div id="perso"></div><p>&nbsp;</p>
+    <div id='retour_magasin' alt="couloir2" title="Couloir" style='z-index:1000'></div>
+
+    <div id="texto"></div>
+
+    {% for key, value in persoDansSalle %}
+        <div class="{{ key }}_magasin1" id="{{ key }}"></div>
+    {% endfor %}
+
+    <div class="objetsDesert">
+        {% for key, value in objetsDesert %}
+            <p>
+            {% set prix = value.prix|json_decode %}
+            <div class="itemDesert" alt="{{ value.id }}">
+                <div class="priceDesert">
+                    {% for key2, value2 in prix %}
+                        {{ value2 }} <img title="{{ key2 }}" src="/images/{{ key2 }}" />
+                    {% endfor %}
+                </div>
+            <br/>
+                <img title="{{ value.commentaire }}" src="{{ value.image }}" />
+            </div>
+            </p>
+        {% endfor %}
+    </div>
+
+    {% if tournevis == 1 %}
+        <div onclick="ajaxAchat(350, 5);" class="achat_5"><a class='achat' value='1' href='' onclick='return false;'><img class='imgmag' title="Tournevis laser" src="/images/objet/tournevis.png" /> <span class='prixEpice'><img src="/images/epice.png" alt="epice dune jeu Frank Herbert" title="epice dune jeu"> 350</span></a></div>
+    {% else %}
+        <div class="achat_5">&nbsp;</div>
+    {% endif %}
+    <div class="clear"></div>
+    {% if reacteur == 1 %}
+        <div onclick="ajaxAchat(5000, 7);" class="achat_7"><a class='achat' value='1' href='' onclick='return false;'><img class='imgmag' title="Réacteur Ixien" src="/images/objet/reacteur.png" /> <span class='prixEpice'><img src="/images/epice.png" alt="epice dune jeu Frank Herbert" title="epice dune jeu">5000</span></a></div>
+    {% else %}
+        <div class="achat_7">&nbsp;</div>
+    {% endif %}
+    <div class="clear"></div>
+    <div onclick="ajaxAchat(8000, 12);" class="achat_12"><a class='achat' value='1' href='' onclick='return false;'><img class='imgmag' title="Laser de fabriquation Ixienne" src="/images/objet/laser.gif" /> <span class='prixEpice'><img src="/images/epice.png" alt="epice dune jeu Frank Herbert" title="epice dune jeu">8000</span></a></div>
+    {% if boussole == 1 %}
+    <div class="clear"></div>
+    <div onclick="ajaxAchat(100000, 2);" class="achat_16"><a class='achat' value='1' href='' onclick='return false;'><img class='imgmag' title="Boussole du désert" src="/images/objet/boussole.png" /> <span class='prixEpice'><img src="/images/epice.png" alt="epice dune jeu Frank Herbert" title="epice dune jeu">100000</span></a></div>
+{% else %}
+    <div class="achat_16">&nbsp;</div>
+    {% endif %}<div class="clear"></div>
+
+</div>
+
+

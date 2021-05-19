@@ -1,0 +1,31 @@
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        var arret = 0;
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+
+    });
+
+
+    $("#leto_ii").dialogue('leto_iiText', 'leto_ii', 1, '',
+        [1000, 1500, 2000, 2500, 2500],
+        [0, 0, -320, 0, -640, 0, -320, 0],
+        [1000, 1500, 2000, 2500, 2500],
+        [0, 0, -320, -457, -640, -457, -320, -457]);
+
+    $("#leto_ii").muetFonction([1000, 1500, 2000, 2500, 2500],
+        [0, 0, -320, 0, -640, 0, -320, 0]);
+</script>
+</head>
+
+
+<div id="{{ salle }}">
+    <div id="perso"></div><p>&nbsp;</p>
+    FIN DU JEU. MERCI D'AVOIR JOUE : moneo.house.atreides@gmail.com
+    <div id="texto"></div>
+    <div class="leto_ii_siaynoq" id="leto_ii"></div>
+</div>
+
+

@@ -1,0 +1,24 @@
+<div id='inThePlace'>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $("#onTalk").val(0);
+            $("#onMyTalk").val(0);
+
+        });
+
+        $("#mesTexto").html('<img src="/images/plan/hangar_plan.png" />');
+        $("#plan").val('hangar_plan');
+    </script>
+    </head>
+    <div id="{{ salle }}">
+        <div id='vers_vaisseau' class='vers_vaisseau' alt="vaisseaux" title="Acheter des vaisseaux">&nbsp;</div>
+        <div id="vers_carteEtoile" alt="carte" title="Conquérir des planètes">&nbsp;</div>
+        <div id='vers_diplomate' alt="diplomate" title="Retour des diplomates">&nbsp;</div>
+        <div title="Couloir nord" id='retour_hangar' alt="couloir" style='z-index:1000'></div>
+        {% if indice == 1 %}
+            <div class="indices" onclick="setIndice()">&nbsp;</div>
+        {% endif %}
+    </div>
+
+</div>

@@ -1,0 +1,116 @@
+<script src="{{ asset('assets/js/paper-full.min.js') }}"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#onTalk").val(0);
+        $("#onMyTalk").val(0);
+    })
+
+    $("#mesTexto").html('<img src="/images/plan/bar_fond_plan.png" />');
+    $("#plan").val('bar_fond_plan');
+
+
+    function clearCanvas(){
+
+        var c = document.getElementById("canvasImage");
+        var ctx = c.getContext("2d");
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.beginPath();
+        delete raster;
+        raster = '';
+        path = '';
+
+    }
+</script>
+</head>
+
+{% if fumee %}
+    <script>$(".sprite_nuage").removeClass('hide');
+   // $(".sprite_nuage").stopTime().mouvfondCom();
+</script>
+{% endif %}
+
+<div id="{{ salle }}">
+    <div id="perso"></div><p>&nbsp;</p>
+    <div id='retour_barfond' alt="bar" onclick="clearCanvas();" title="Bar" style='z-index:1000'></div>
+
+
+    <div class='sprite_nuage hide'>&nbsp;</div>
+
+    <canvas id="canvasImage" imageCanvas>
+        <img id="imageCanvas" width="600px" height="512" style="display: none;" src="/images/galaxy.png"/>
+    </canvas>
+</div>
+<script type="text/paperscript" canvas="canvasImage">
+
+    // Based on 'JPEG Raster' by Jonathan Puckey:
+    // http://www.flickr.com/photos/puckey/3179779686/in/photostream/
+
+    // Create a raster item:
+    var raster = new Raster('/images/galaxy.png');
+    var loaded = false;
+
+    raster.on('load', function() {
+        loaded = true;
+        onResize();
+    });
+
+    // Make the raster invisible:
+    raster.visible = false;
+
+    var lastPos = view.center;
+    function moveHandler(event) {
+        if (!loaded)
+            return;
+        if (lastPos.getDistance(event.point) < 10)
+            return;
+        lastPos = event.point;
+
+        var size = this.bounds.size.clone();
+        var isLandscape = size.width > size.height;
+
+        // If the path is in landscape orientation, we're going to
+        // split the path horizontally, otherwise vertically:
+
+        size /= isLandscape ? [2, 1] : [1, 2];
+
+        var path = new Path.Rectangle({
+            point: this.bounds.topLeft.floor(),
+            size: size.ceil(),
+            onMouseMove: moveHandler
+        });
+        path.fillColor = raster.getAverageColor(path);
+
+        var path = new Path.Rectangle({
+            point: isLandscape
+                ? this.bounds.topCenter.ceil()
+                : this.bounds.leftCenter.ceil(),
+            size: size.floor(),
+            onMouseMove: moveHandler
+        });
+        path.fillColor = raster.getAverageColor(path);
+
+        this.remove();
+    }
+
+    function onResize(event) {
+        if (!loaded)
+            return;
+        project.activeLayer.removeChildren();
+
+        // Transform the raster so that it fills the bounding rectangle
+        // of the view:
+        raster.fitBounds(view.bounds, true);
+
+        // Create a path that fills the view, and fill it with
+        // the average color of the raster:
+        new Path.Rectangle({
+            rectangle: view.bounds,
+            fillColor: raster.getAverageColor(view.bounds),
+            onMouseMove: moveHandler
+        });
+    }
+
+</script>
+
